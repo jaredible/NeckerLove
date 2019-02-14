@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Find</title>
+    <viewport name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  </head>
+  <body>
+    <div class="header">
+      <h2 class="logo"><a href="/">Neckerlove</a></h2>
+      <input type="checkbox" id="chk">
+      <label for="chk" class="show-menu-btn">
+        <i class="fas fa-ellipsis-h"></i>
+      </label>
+
+      <ul class="menu">
+        <a href="/">Home</a>
+        <a href="/find">Find</a>
+        <a href="/profile">Profile</a>
+        <a href="/register">Register</a>
+        <a href="/login">Login</a>
+        <label for="chk" class="hide-menu-btn">
+          <i class="fas fa-times"></i>
+        </label>
+      </ul>
+    </div>
+
+    <div class="test-content">
+      <div class="test-box">
+        <form class="test-form" action="/login.html" method="post">
+          <div class="wrapper">
+            <div class="toggle-radio">
+              <input type="radio" id="first-toggle" class="toggle-option" name="toggle-option" value="interest" checked>
+              <input type="radio" id="second-toggle" class="toggle-option" name="toggle-option" value="locality">
+              <label for="first-toggle">Interest</label>
+              <label for="second-toggle">Locality</label>
+              <div class="toggle-option-slider"></div>
+            </div>
+          </div>
+          <div class="search">
+            <div class="search-box">
+              <input class="search-txt" type="text" name="" placeholder="Type to search">
+              <a class="search-btn" href="#">
+                <i class="fas fa-search"></i>
+              </a>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>
