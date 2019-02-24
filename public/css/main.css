@@ -144,37 +144,37 @@ body {
   height: 100vh;
 }
 
-@media (max-width:575px) {
+@media (max-width: 575px) {
   #home-title {
     font-size: 2em;
   }
 }
 
-@media (min-width:576px) {
+@media (min-width: 576px) {
   #home-title {
     font-size: 4em;
   }
 }
 
-@media (min-width:768px) {
+@media (min-width: 768px) {
   #home-title {
     font-size: 5.5em;
   }
 }
 
-@media (min-width:992px) {
+@media (min-width: 992px) {
   #home-title {
     font-size: 6.75em;
   }
 }
 
-@media (min-width:1200px) {
+@media (min-width: 1200px) {
   #home-title {
     font-size: 10em;
   }
 }
 
-@media (max-width:769px) {
+@media (max-width: 769px) {
   .show-menu-btn, .hide-menu-btn {
     display: block;
   }
@@ -305,7 +305,7 @@ body {
   box-sizing: border-box;
   width: 300px;
   background: #ffffff1f;
-  border: 2px solid #881b1b;
+  border: 2px solid #881b1b3f;
   padding: 10px;
   color: #881b1b;
   outline: none;
@@ -322,7 +322,7 @@ body {
 .login-btn {
   font-size: 1.5em;
   width: 300px;
-  background: #e74c3c;
+  background: #e74c3cdf;
   border: none;
   outline: none;
   color: #591212;
@@ -544,7 +544,7 @@ footer {
   height: 192px;
   position: relative;
   border-radius: 100%;
-  border: 6px solid #881b1b;
+  border: 6px solid #881b1b1f;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
 }
 

@@ -35,9 +35,6 @@ var server = http.createServer((request, response) => {
     case '/find':
       filePath += '/find.html'
       break;
-    case '/test':
-      filePath += '/test.html'
-      break;
     default:
       filePath += urlObj.pathname;
       break;
