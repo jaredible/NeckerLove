@@ -2,15 +2,17 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>Register</title>
-    <viewport name="viewport" content="width=device-width, initial-scale=1">
+
     <link rel="stylesheet" type="text/css" href="/css/main.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
   </head>
   <body>
-    <div class="header">
-      <h2 class="logo"><a href="/">Neckerlove</a></h2>
+    <header class="header">
+      <h2 class="logo"><a href="/"><i class="fas fa-heart"></i> Neckerlove</a></h2>
       <input type="checkbox" id="chk">
       <label for="chk" class="show-menu-btn">
         <i class="fas fa-ellipsis-h"></i>
@@ -26,17 +28,31 @@
           <i class="fas fa-times"></i>
         </label>
       </ul>
-    </div>
+    </header>
 
     <div class="content">
       <div class="login-box">
         <form class="login-form" action="login.html" method="post">
-          <h1>Welcome</h1>
-          <input class="txtb" type="text" name="" placeholder="Username">
+          <h1>Register</h1>
+          <input class="txtb" type="email" name="" placeholder="Username">
           <input class="txtb" type="password" name="" placeholder="Password">
           <input class="login-btn" type="submit" name="" value="Register">
         </form>
+
+        <footer class="footer">
+          <div class="footer-container">
+            <small class="copyright">
+              Designed with
+              <i class="fas fa-heart"></i>
+              by
+              <a href="http://jareddiehl.me"> Jared Diehl</a>
+            </small>
+          </div>
+        </footer>
       </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="/js/main.js"></script>
   </body>
 </html>

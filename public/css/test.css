@@ -1,0 +1,527 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "montserrat", sans-serif;
+}
+
+html {
+}
+
+body {
+  line-height: 1.5;
+}
+
+.header {
+  position: fixed;
+  display: block;
+  top: 0;
+  width: 100%;
+  font-size: 24px!important;
+  background: #34495e;
+  padding: 8px 16px!important;
+  color: #fff;
+  z-index: 1;
+}
+
+.logo {
+  line-height: 100px;
+  float: left;
+  text-transform: uppercase;
+  background: red;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.menu {
+  float: right;
+  line-height: 100px;
+}
+
+.menu a {
+  color: #fff;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0 10px;
+  transition: 0.4s;
+}
+
+.show-menu-btn, .hide-menu-btn {
+  transition: 0.4s;
+  font-size: 30px;
+  cursor: pointer;
+  display: none;
+}
+
+.show-menu-btn {
+  float: right;
+}
+
+.show-menu-btn i {
+  line-height: 100px;
+}
+
+.logo a:hover,
+.menu a:hover,
+.show-menu-btn:hover,
+.hide-menu-btn:hover {
+  color: #3498db;
+}
+
+#chk {
+  position: absolute;
+  visibility: hidden;
+  z-index: -1111;
+}
+
+.content {
+  padding: 0;
+  height: 100vh;
+}
+
+.general-info {
+  height: 100vh;
+  padding: 0 20px;
+  background-image: linear-gradient(45deg, #9fbaa8, #31354c);
+}
+
+.general-info img {
+  width: 100%;
+  max-width: 700px;
+  margin: 20px 0;
+}
+
+@media (min-width:576px) {
+  .header {
+    background: red;
+  }
+}
+
+@media (min-width:768px) {
+  .header {
+    background: green;
+    height: 200px;
+  }
+}
+
+@media (min-width:992px) {
+  .show-menu-btn, .hide-menu-btn {
+    display: block;
+  }
+
+  .menu {
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    background: #333;
+    right: -100%;
+    top: 0;
+    text-align: center;
+    padding: 80px 0;
+    line-height: normal;
+    transition: 0.7s;
+    z-index: 1111;
+  }
+
+  .menu a {
+    display: block;
+    padding: 20px;
+  }
+
+  .hide-menu-btn {
+    position: absolute;
+    top: 40px;
+    right: 40px;
+  }
+
+  #chk:checked ~ .menu {
+    right: 0;
+  }
+}
+
+@media (min-width:1200px) {
+  .header {
+    background: blue;
+  }
+}
+
+.login-box {
+  position: relative;
+  display: flex;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(45deg, #9fbaa8, #31354c);
+  transition: 0.4s;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-form {
+  color: white;
+  text-align: center;
+  flex-direction: column;
+}
+
+.login-form h1 {
+  font-weight: 400;
+  margin-top: 0;
+}
+
+.txtb {
+  font-size: 1em;
+  display: block;
+  box-sizing: border-box;
+  width: 240px;
+  background: #ffffff1f;
+  border: 2px solid white;
+  padding: 10px 20px;
+  color: black;
+  outline: none;
+  margin: 10px 0;
+  border-radius: 6px;
+  text-align: center;
+}
+
+.login-btn {
+  font-size: 1em;
+  width: 240px;
+  background: #2f3640;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.login-btn:active {
+  background: #9fbaa8;
+}
+
+.search {
+  position: relative;
+  display: block;
+}
+
+.search-box {
+  position: relative;
+  display: inline-block;
+  background: #2f3640;
+  height: 60px;
+  border-radius: 40px;
+  padding: 10px;
+}
+
+.search-box:hover > .search-txt {
+  width: 240px;
+  padding: 0 6px;
+}
+
+.search-box:hover > .search-btn {
+  color: #31354c;
+  background: white;
+}
+
+.search-btn {
+  color: #9fbaa8;
+  float: right;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #2f3640;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  transition: 0.4s;
+}
+
+.search-txt {
+  border: none;
+  background: none;
+  outline: none;
+  float: left;
+  padding: 0;
+  color: white;
+  font-size: 16px;
+  transition: 0.4s;
+  line-height: 40px;
+  width: 0;
+}
+
+.test-content {
+  padding: 0px;
+  margin: 0;
+  height: 100vh;
+  background-image: linear-gradient(45deg, #9fbaa8, #31354c);
+}
+
+.test-box {
+  position: relative;
+  display: flex;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(45deg, #9fbaa8, #31354c);
+  transition: 0.4s;
+  justify-content: center;
+  align-items: center;
+}
+
+.test-form {
+  left: 50%;
+  transform: translate(-50%, 0);
+  color: white;
+  text-align: center;
+}
+
+.test-radio {
+  display: inline-block;
+  margin: 20px;
+}
+
+.test-text {
+  display: block;
+  margin: 20px;
+}
+
+.test-button {
+  position: relative;
+  display: inline-block;
+  width: 240px;
+  background: #2c3e50;
+  border: 0;
+  color: white;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.wrapper {
+  margin: 10px 0;
+  padding: 0;
+}
+
+.toggle-radio {
+  position: relative;
+  background: #2f3640;
+  opacity: 1;
+  margin: 4px auto;
+  overflow: hidden;
+  padding: 0 !important;
+  border-radius: 50px;
+  position: relative;
+  height: 56px;
+  width: 292px;
+}
+
+.toggle-radio > * {
+  float: left;
+}
+
+.toggle-radio input[type=radio] {
+  display: none;
+}
+
+.toggle-radio label {
+  position: relative;
+  padding-top: 17px;
+  color: rgba(255, 255, 255, 0.9);
+  z-index: 0;
+  width: 140px;
+  height: 50px;
+  margin: 3px 3px;
+  border-radius: 50px;
+  cursor: pointer;
+  z-index: 1;
+  text-align: center;
+}
+
+.toggle-option-slider {
+  width: 140px;
+  height: 50px;
+  position: absolute;
+  top: 3px;
+  border-radius: 50px;
+  transition: all 0.4s ease;
+}
+
+#first-toggle:checked ~ .toggle-option-slider {
+  background: rgba(255, 255, 255, 0.3);
+  left: 3px;
+}
+
+#second-toggle:checked ~ .toggle-option-slider {
+  background: rgba(255, 255, 255, 0.3);
+  left: 149px;
+}
+
+.upload {
+  display: block;
+  position: relative;
+  margin: 0 auto;
+  width: 100%;
+  height: 170px;
+  border: 5px dashed #fff;
+  background: #ffffff3f;
+}
+
+.upload p {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  line-height: 170px;
+  color: #ffffff;
+  font-family: Arial;
+}
+
+.upload input {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  outline: none;
+  opacity: 0;
+}
+
+.upload button {
+  margin: 0;
+  color: #fff;
+  background: #16a085;
+  border: none;
+  width: 100%;
+  height: 30px;
+  border-radius: 4px;
+  border-bottom: 4px solid #117a60;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+form button:hover {
+  background: #149174;
+  color: #0c5645;
+}
+
+form button:active {
+  border: 0;
+}
+
+.home-content {
+}
+
+.home-content h1 {
+  font-size: 250%;
+}
+
+.home-content p {
+  font-size: 140%;
+  line-height: 150%;
+  color: #333;
+}
+
+.slide {
+  position: relative;
+  padding: 25vh 10%;
+  min-height: 100vh;
+  width: 100vw;
+  box-sizing: border-box;
+  box-shadow: 0 -1px 10px rgba(0, 0, 0, 0.7);
+  transform-style: inherit;
+}
+
+.home-content img {
+  position: absolute;
+  top: 50%;
+  left: 35%;
+  width: 320px;
+  height: 240px;
+  transform: translateZ(.25px) scale(.75) translateX(-94%) translateY(-100%) rotate(2deg);
+  padding: 10px;
+  border-radius: 5px;
+  background: rgba(240, 230, 220, 0.7);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.7);
+}
+
+.home-content img:last-of-type {
+  transform: translateZ(.4px) scale(.6) translateX(-104%) translateY(-40%) rotate(-5deg);
+}
+
+.slide:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  box-shadow: 0 0 8px 1px rgba(0, 0, 0, 0.7);
+}
+
+.title {
+  width: 50%;
+  padding: 5%;
+  border-radius: 5px;
+  background: rgba(240,230,220, 0.7);
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.7);
+}
+
+.slide:nth-child(2n) .title {
+  margin-left: 0;
+  margin-right: auto;
+}
+
+.slide:nth-child(2n+1) .title {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.slide, .slide:before {
+  background: 50% 50% / cover;
+}
+
+.header2 {
+  text-align: center;
+  font-size: 175%;
+  color: #fff;
+  text-shadow: 0 2px 2px #000;
+}
+
+#title {
+  background-image: url("https://lorempixel.com/640/480/abstract/6/");
+  z-index:2;
+}
+
+#title h1 {
+ transform: translateZ(0.25px) scale(0.75);
+ transform-origin: 50% 100%;
+}
+
+#slide1:before {
+  background-image: url("https://lorempixel.com/640/480/abstract/4/");
+  transform: translateZ(-1px) scale(2);
+}
+
+#slide2 {
+  background-image: url("https://lorempixel.com/640/480/abstract/3/");
+  z-index:2;
+}
+
+#slide3:before {
+  background-image: url("https://lorempixel.com/640/480/abstract/5/");
+  transform: translateZ(-1px) scale(2);
+}
+
+#slide4 {
+  background: #222;
+}
+
+/* TODO footer, images with alt tags, hide scrolling, centering on find switch */
