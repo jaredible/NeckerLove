@@ -255,7 +255,7 @@ body {
   transition: 0.4s;
   justify-content: center;
   align-items: center;
-  background-image: url("../img/test4.jpg");
+  background-image: url("../img/bg.jpg");
   height: 100%;
   background-position: center;
   background-repeat: no-repeat;
@@ -402,7 +402,7 @@ body {
   height: 56px;
 }
 
-.toggle-radio>* {
+.toggle-radio > * {
   float: left;
 }
 
@@ -433,58 +433,14 @@ body {
   transition: all 0.4s ease;
 }
 
-#first-toggle:checked~.toggle-option-slider {
+#first-toggle:checked ~ .toggle-option-slider {
   background: rgba(255, 255, 255, 0.25);
   left: 3px;
 }
 
-#second-toggle:checked~.toggle-option-slider {
+#second-toggle:checked ~ .toggle-option-slider {
   background: rgba(255, 255, 255, 0.25);
   left: 149px;
-}
-
-.upload {
-  display: block;
-  position: relative;
-  margin: 10px auto;
-  width: 100%;
-  height: 170px;
-  border: 3px dashed #881b1b;
-  border-radius: 10px;
-  background: #ffffff5f;
-}
-
-.upload p {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  text-align: center;
-  line-height: 170px;
-  color: #d63031;
-  font-family: Arial;
-}
-
-.upload input {
-  position: relative;
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  outline: none;
-  opacity: 0;
-}
-
-.upload button {
-  margin: 0;
-  color: #fff;
-  background: #16a085;
-  border: none;
-  width: 100%;
-  height: 30px;
-  border-radius: 4px;
-  border-bottom: 4px solid #117a60;
-  transition: all 0.2s ease;
-  outline: none;
 }
 
 form button:hover {
@@ -531,6 +487,10 @@ footer {
   color: #FB866A;
 }
 
+#imagePreview {
+  background-image: url('../img/profile_picture.jpg');
+}
+
 .avatar-upload {
   position: relative;
   max-width: 205px;
@@ -548,7 +508,7 @@ footer {
   display: none;
 }
 
-.avatar-upload .avatar-edit input+label {
+.avatar-upload .avatar-edit input + label {
   display: inline-block;
   width: 34px;
   height: 34px;
@@ -562,12 +522,12 @@ footer {
   transition: all 0.2s ease-in-out;
 }
 
-.avatar-upload .avatar-edit input+label:hover {
+.avatar-upload .avatar-edit input + label:hover {
   background: #881b1b;
   border-color: #e17055;
 }
 
-.avatar-upload .avatar-edit input+label:after {
+.avatar-upload .avatar-edit input + label:after {
   content: "\002b";
   font-family: 'FontAwesome';
   color: #fab1a0;
@@ -588,7 +548,7 @@ footer {
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
 }
 
-.avatar-upload .avatar-preview>div {
+.avatar-upload .avatar-preview > div {
   width: 100%;
   height: 100%;
   border-radius: 100%;

@@ -34,23 +34,21 @@
 
   <div class="content">
     <div class="login-box">
-      <form class="login-form" action="login.html" method="post">
-        <!--<h1>Profile Info</h1>-->
+      <form class="login-form" action="/profile" method="post">
         <div class="avatar-upload">
           <div class="avatar-edit">
-            <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+            <input type='file' id="imageUpload" name="profilePicture" accept=".png, .jpg, .jpeg">
             <label for="imageUpload"></label>
           </div>
           <div class="avatar-preview">
-            <div id="imagePreview" style="background-image: url(http://i.pravatar.cc/500?img=7);">
-            </div>
+            <div id="imagePreview"></div>
           </div>
         </div>
-        <input class="txtb" type="text" name="" placeholder="First Name">
-        <input class="txtb" type="text" name="" placeholder="Last Name">
-        <input class="txtb" type="text" name="" placeholder="Interests">
-        <input class="txtb" type="text" name="" placeholder="Locality">
-        <input class="login-btn" type="submit" name="" value="Save">
+        <input type="text" class="txtb" name="firstName" placeholder="First Name">
+        <input type="text" class="txtb" name="lastName" placeholder="Last Name">
+        <input type="text" class="txtb" name="interests" placeholder="Interests">
+        <input type="text" class="txtb" name="locality" placeholder="Locality">
+        <input type="submit" class="login-btn" name="" value="Save">
       </form>
 
       <footer class="footer">
