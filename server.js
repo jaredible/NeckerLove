@@ -4,7 +4,7 @@ var path = require('path');
 var url = require('url');
 var process = require('process');
 
-const PORT = process.env.port || 8080;
+const PORT = process.env.port || 8069;
 const HOST = process.env.host || 'localhost';
 const ENV = process.env.NODE_ENV || 'development';
 
@@ -20,6 +20,7 @@ var server = http.createServer((request, response) => {
   var filePath = '.';
   switch (urlObj.pathname) {
     case '/':
+    case '/index':
       filePath += '/index.html';
       break;
     case '/register':
