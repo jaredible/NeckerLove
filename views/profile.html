@@ -1,64 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Profile</title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" type="text/css" href="/css/main.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-  </head>
-  <body>
-    <header class="header">
-      <h2 class="logo"><a href="/"><i class="fas fa-heart"></i> Neckerlove</a></h2>
-      <input type="checkbox" id="chk">
-      <label for="chk" class="show-menu-btn">
-        <i class="fas fa-ellipsis-h"></i>
+  <title>Profile</title>
+
+  <link rel="stylesheet" type="text/css" href="/css/main.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+</head>
+
+<body>
+  <header class="header">
+    <h2 class="logo"><a href="/"><i class="fas fa-heart"></i> Neckerlove</a></h2>
+    <input type="checkbox" id="chk">
+    <label for="chk" class="show-menu-btn">
+      <i class="fas fa-ellipsis-h"></i>
+    </label>
+
+    <ul class="menu">
+      <a href="/">Home</a>
+      <a href="/find">Find</a>
+      <a href="/profile">Profile</a>
+      <a href="/register">Register</a>
+      <a href="/login">Login</a>
+      <label for="chk" class="hide-menu-btn">
+        <i class="fas fa-times"></i>
       </label>
+    </ul>
+  </header>
 
-      <ul class="menu">
-        <a href="/">Home</a>
-        <a href="/find">Find</a>
-        <a href="/profile">Profile</a>
-        <a href="/register">Register</a>
-        <a href="/login">Login</a>
-        <label for="chk" class="hide-menu-btn">
-          <i class="fas fa-times"></i>
-        </label>
-      </ul>
-    </header>
-
-    <div class="content">
-      <div class="login-box">
-        <form class="login-form" action="login.html" method="post">
-          <h1>Profile Info</h1>
-          <input class="txtb" type="text" name="" placeholder="First Name">
-          <input class="txtb" type="text" name="" placeholder="Last Name">
-          <div class="upload">
-            <p>click to upload profile picture</p>
-            <input type="file">
+  <div class="content">
+    <div class="login-box">
+      <form class="login-form" action="login.html" method="post">
+        <!--<h1>Profile Info</h1>-->
+        <div class="avatar-upload">
+          <div class="avatar-edit">
+            <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+            <label for="imageUpload"></label>
           </div>
-          <input class="txtb" type="text" name="" placeholder="Interests">
-          <input class="txtb" type="text" name="" placeholder="Locality">
-          <input class="login-btn" type="submit" name="" value="Save">
-        </form>
-
-        <footer class="footer">
-          <div class="footer-container">
-            <small class="copyright">
-              Designed with
-              <i class="fas fa-heart"></i>
-              by
-              <a href="http://jareddiehl.me"> Jared Diehl</a>
-            </small>
+          <div class="avatar-preview">
+            <div id="imagePreview" style="background-image: url(http://i.pravatar.cc/500?img=7);">
+            </div>
           </div>
-        </footer>
-      </div>
+        </div>
+        <input class="txtb" type="text" name="" placeholder="First Name">
+        <input class="txtb" type="text" name="" placeholder="Last Name">
+        <input class="txtb" type="text" name="" placeholder="Interests">
+        <input class="txtb" type="text" name="" placeholder="Locality">
+        <input class="login-btn" type="submit" name="" value="Save">
+      </form>
+
+      <footer class="footer">
+        <div class="footer-container">
+          <small class="copyright">
+            Designed with
+            <i class="fas fa-heart"></i>
+            by
+            <a href="http://jareddiehl.me"> Jared Diehl</a>
+          </small>
+        </div>
+      </footer>
     </div>
+  </div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <script src="/js/main.js"></script>
-  </body>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="/js/main.js"></script>
+</body>
+
 </html>

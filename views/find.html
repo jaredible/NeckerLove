@@ -1,70 +1,296 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Find</title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="/css/main.css">
-  </head>
-  <body>
-    <header class="header">
-      <h2 class="logo"><a href="/"><i class="fas fa-heart"></i> Neckerlove</a></h2>
-      <input type="checkbox" id="chk">
-      <label for="chk" class="show-menu-btn">
-        <i class="fas fa-ellipsis-h"></i>
+  <title>Find</title>
+
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="/css/find.css">
+</head>
+
+<body>
+  <header class="header">
+    <h2 class="logo"><a href="/"><i class="fas fa-heart"></i> Neckerlove</a></h2>
+    <input type="checkbox" id="chk">
+    <label for="chk" class="show-menu-btn">
+      <i class="fas fa-ellipsis-h"></i>
+    </label>
+
+    <ul class="menu">
+      <a href="/">Home</a>
+      <a href="/find">Find</a>
+      <a href="/profile">Profile</a>
+      <a href="/register">Register</a>
+      <a href="/login">Login</a>
+      <label for="chk" class="hide-menu-btn">
+        <i class="fas fa-times"></i>
       </label>
+    </ul>
+  </header>
 
-      <ul class="menu">
-        <a href="/">Home</a>
-        <a href="/find">Find</a>
-        <a href="/profile">Profile</a>
-        <a href="/register">Register</a>
-        <a href="/login">Login</a>
-        <label for="chk" class="hide-menu-btn">
-          <i class="fas fa-times"></i>
-        </label>
-      </ul>
-    </header>
-
-    <div class="content">
-      <div class="test2">
-        <form class="login-form" action="/login.html" method="post">
-          <div class="wrapper">
-            <div class="toggle-radio">
-              <input type="radio" id="first-toggle" class="toggle-option" name="toggle-option" value="interest" checked>
-              <input type="radio" id="second-toggle" class="toggle-option" name="toggle-option" value="locality">
-              <label for="first-toggle">Interest</label>
-              <label for="second-toggle">Locality</label>
-              <div class="toggle-option-slider"></div>
-            </div>
+  <div class="container">
+    <div class="search-wrapper">
+      <form class="login-form" action="/login.html" method="post">
+        <div class="wrapper">
+          <div class="toggle-radio">
+            <input type="radio" id="first-toggle" class="toggle-option" name="toggle-option" value="interest" checked>
+            <input type="radio" id="second-toggle" class="toggle-option" name="toggle-option" value="locality">
+            <label for="first-toggle">Interest</label>
+            <label for="second-toggle">Locality</label>
+            <div class="toggle-option-slider"></div>
           </div>
-          <div class="search">
-            <div class="search-box">
-              <input class="search-txt" type="text" name="" placeholder="Type to search">
-              <a class="search-btn" href="#">
-                <i class="fas fa-search"></i>
-              </a>
-            </div>
+        </div>
+        <div class="search">
+          <div class="search-box">
+            <input class="search-txt" type="text" name="" placeholder="Type to search">
+            <a class="search-btn" href="#">
+              <i class="fas fa-search"></i>
+            </a>
           </div>
-        </form>
-
-        <footer class="footer">
-          <div class="footer-container">
-            <small class="copyright">
-              Designed with
-              <i class="fas fa-heart"></i>
-              by
-              <a href="http://jareddiehl.me"> Jared Diehl</a>
-            </small>
-          </div>
-        </footer>
-      </div>
+        </div>
+      </form>
     </div>
 
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <script src="/js/main.js"></script>
-  </body>
+    <div class="row">
+      <div class="column">
+        <div class="card">
+          <img src="/img/profile_picture.jpg" alt="profile_picture">
+          <h3>Name</h3>
+          <div class="profile-info">
+            <span>Locality</span>
+            &bull;
+            <span>Interests</span>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="card">
+          <img src="/img/profile_picture.jpg" alt="profile_picture">
+          <h3>Name</h3>
+          <div class="profile-info">
+            <span>Locality</span>
+            &bull;
+            <span>Interests</span>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="card">
+          <img src="/img/profile_picture.jpg" alt="profile_picture">
+          <h3>Name</h3>
+          <div class="profile-info">
+            <span>Locality</span>
+            &bull;
+            <span>Interests</span>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="card">
+          <img src="/img/profile_picture.jpg" alt="profile_picture">
+          <h3>Name</h3>
+          <div class="profile-info">
+            <span>Locality</span>
+            &bull;
+            <span>Interests</span>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="card">
+          <img src="/img/profile_picture.jpg" alt="profile_picture">
+          <h3>Name</h3>
+          <div class="profile-info">
+            <span>Locality</span>
+            &bull;
+            <span>Interests</span>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="card">
+          <img src="/img/profile_picture.jpg" alt="profile_picture">
+          <h3>Name</h3>
+          <div class="profile-info">
+            <span>Locality</span>
+            &bull;
+            <span>Interests</span>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="card">
+          <img src="/img/profile_picture.jpg" alt="profile_picture">
+          <h3>Name</h3>
+          <div class="profile-info">
+            <span>Locality</span>
+            &bull;
+            <span>Interests</span>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="card">
+          <img src="/img/profile_picture.jpg" alt="profile_picture">
+          <h3>Name</h3>
+          <div class="profile-info">
+            <span>Locality</span>
+            &bull;
+            <span>Interests</span>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="card">
+          <img src="/img/profile_picture.jpg" alt="profile_picture">
+          <h3>Name</h3>
+          <div class="profile-info">
+            <span>Locality</span>
+            &bull;
+            <span>Interests</span>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="card">
+          <img src="/img/profile_picture.jpg" alt="profile_picture">
+          <h3>Name</h3>
+          <div class="profile-info">
+            <span>Locality</span>
+            &bull;
+            <span>Interests</span>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="card">
+          <img src="/img/profile_picture.jpg" alt="profile_picture">
+          <h3>Name</h3>
+          <div class="profile-info">
+            <span>Locality</span>
+            &bull;
+            <span>Interests</span>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="card">
+          <img src="/img/profile_picture.jpg" alt="profile_picture">
+          <h3>Name</h3>
+          <div class="profile-info">
+            <span>Locality</span>
+            &bull;
+            <span>Interests</span>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="card">
+          <img src="/img/profile_picture.jpg" alt="profile_picture">
+          <h3>Name</h3>
+          <div class="profile-info">
+            <span>Locality</span>
+            &bull;
+            <span>Interests</span>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="card">
+          <img src="/img/profile_picture.jpg" alt="profile_picture">
+          <h3>Name</h3>
+          <div class="profile-info">
+            <span>Locality</span>
+            &bull;
+            <span>Interests</span>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="card">
+          <img src="/img/profile_picture.jpg" alt="profile_picture">
+          <h3>Name</h3>
+          <div class="profile-info">
+            <span>Locality</span>
+            &bull;
+            <span>Interests</span>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="card">
+          <img src="/img/profile_picture.jpg" alt="profile_picture">
+          <h3>Name</h3>
+          <div class="profile-info">
+            <span>Locality</span>
+            &bull;
+            <span>Interests</span>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="card">
+          <img src="/img/profile_picture.jpg" alt="profile_picture">
+          <h3>Name</h3>
+          <div class="profile-info">
+            <span>Locality</span>
+            &bull;
+            <span>Interests</span>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="card">
+          <img src="/img/profile_picture.jpg" alt="profile_picture">
+          <h3>Name</h3>
+          <div class="profile-info">
+            <span>Locality</span>
+            &bull;
+            <span>Interests</span>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="card">
+          <img src="/img/profile_picture.jpg" alt="profile_picture">
+          <h3>Name</h3>
+          <div class="profile-info">
+            <span>Locality</span>
+            &bull;
+            <span>Interests</span>
+          </div>
+        </div>
+      </div>
+      <div class="column">
+        <div class="card">
+          <img src="/img/profile_picture.jpg" alt="profile_picture">
+          <h3>Name</h3>
+          <div class="profile-info">
+            <span>Locality</span>
+            &bull;
+            <span>Interests</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <small class="copyright">
+        Designed with
+        <i class="fas fa-heart"></i>
+        by
+        <a href="http://jareddiehl.me"> Jared Diehl</a>
+      </small>
+    </div>
+  </footer>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+  <script src="/js/main.js"></script>
+</body>
+
 </html>

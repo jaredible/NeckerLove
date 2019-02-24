@@ -35,6 +35,9 @@ var server = http.createServer((request, response) => {
     case '/find':
       filePath += '/find.html'
       break;
+    case '/test':
+      filePath += '/test.html'
+      break;
     default:
       filePath += urlObj.pathname;
       break;
@@ -74,7 +77,9 @@ var server = http.createServer((request, response) => {
     if (error) {
       if (error.code == 'ENOENT') {
         fs.readFile('./views/404.html', (error, content) => {
-          response.writeHead(200, { 'Content-Type': contentType });
+          response.writeHead(200, {
+            'Content-Type': contentType
+          });
           response.end(content, 'UTF-8');
         });
       } else {
@@ -83,7 +88,9 @@ var server = http.createServer((request, response) => {
         response.end();
       }
     } else {
-      response.writeHead(200, { 'Content-Type': contentType });
+      response.writeHead(200, {
+        'Content-Type': contentType
+      });
       response.end(content, 'UTF-8');
     }
   });
