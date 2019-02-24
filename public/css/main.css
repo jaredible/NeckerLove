@@ -128,6 +128,11 @@ body {
   color: #ffeaa7;
 }
 
+.home-logo a:hover,
+.home-menu a:hover {
+  color: #ffeaa7;
+}
+
 #chk {
   position: absolute;
   visibility: hidden;
@@ -219,6 +224,10 @@ body {
   }
 
   #chk:checked ~ .menu {
+    right: 0;
+  }
+
+  #chk:checked ~ .home-menu {
     right: 0;
   }
 }
