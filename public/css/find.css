@@ -355,7 +355,7 @@ body {
 }
 
 /* Style the counter cards */
-.card {
+.profile-card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   margin-top: 15px;
   margin-bottom: 15px;
@@ -367,12 +367,30 @@ body {
   cursor: pointer;
 }
 
-.card img {
+.profile-card img {
   display: inline-block;
   max-width: 100%;
   height: auto;
   border-radius: 10px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.profile-name {
+  margin: 4px;
+  padding: 4px;
+  color: #591212;
+}
+
+.profile-info {
+  margin: 2px;
+  margin: 2px;
+  color: #a52222;
+}
+
+.profile-locality {
+}
+
+.profile-interests {
 }
 
 footer {
