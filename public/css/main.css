@@ -534,7 +534,7 @@ footer {
 .avatar-upload {
   position: relative;
   max-width: 205px;
-  margin: 50px auto;
+  margin: 0 auto;
 }
 
 .avatar-upload .avatar-edit {
