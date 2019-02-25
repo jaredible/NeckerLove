@@ -76,6 +76,7 @@ body {
   font-weight: bold;
   text-align: center;
   text-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+  cursor: default;
 }
 
 .menu {
