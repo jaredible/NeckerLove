@@ -365,11 +365,13 @@ body {
   border: 2px solid #881b1b1f;
   border-radius: 20px;
   cursor: pointer;
+  transition: all ease-in-out 0.4s;
 }
 
 .profile-card:hover {
-  transform: translate(0, -10px);
-  transition: all 0.4s ease;
+  transform: translate(0, -12px);
+  transition: all ease-in-out 0.4s;
+  box-shadow: 0 16px 8px 0 rgba(0, 0, 0, 0.2);
 }
 
 .profile-card img {

@@ -17,5 +17,7 @@
     "url": "https://github.com/jaredible/NeckerLove/issues"
   },
   "homepage": "https://github.com/jaredible/NeckerLove#readme",
-  "dependencies": {}
+  "dependencies": {
+    "mongoose": "^5.4.16"
+  }
 }
