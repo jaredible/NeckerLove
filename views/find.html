@@ -34,22 +34,20 @@
   <div class="container-wrapper">
     <div class="container">
       <div class="search-wrapper">
-        <form class="login-form" action="/login.html" method="post">
+        <form id="findForm" class="login-form" action="/login" method="POST" novalidate>
           <div class="wrapper">
             <div class="toggle-radio">
-              <input type="radio" id="first-toggle" class="toggle-option" name="toggle-option" value="interest" checked>
-              <input type="radio" id="second-toggle" class="toggle-option" name="toggle-option" value="locality">
-              <label for="first-toggle">Interest</label>
-              <label for="second-toggle">Locality</label>
+              <input type="radio" id="findInterests" class="toggle-option" name="toggle-option" value="interest" checked>
+              <input type="radio" id="findLocality" class="toggle-option" name="toggle-option" value="locality">
+              <label for="findInterests">Interest</label>
+              <label for="findLocality">Locality</label>
               <div class="toggle-option-slider"></div>
             </div>
           </div>
           <div class="search">
             <div class="search-box">
-              <input class="search-txt" type="text" name="" placeholder="Type to search">
-              <a class="search-btn" href="#">
-                <i class="fas fa-search"></i>
-              </a>
+              <input id="findSearch" class="search-txt" type="text" name="findSearch" placeholder="Type to search">
+              <input id="findSubmit" type="submit" class="search-btn" value="Find">
             </div>
           </div>
         </form>
@@ -282,17 +280,13 @@
 
   <footer class="footer">
     <div class="footer-container">
-      <small class="copyright">
-        Designed with
-        <i class="fas fa-heart"></i>
-        by
-        <a href="http://jareddiehl.me"> Jared Diehl</a>
-      </small>
+      <small class="copyright">Designed with <i class="fas fa-heart"></i> by <a href="http://jareddiehl.me">Jared Diehl</a></small>
     </div>
   </footer>
 
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
   <script src="/js/main.js"></script>
+  <script src="/js/find.js"></script>
 </body>
 
 </html>

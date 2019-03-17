@@ -1,5 +1,3 @@
-var profile = this;
-
 var validator = $("#profileForm").validate({
   rules: {
     profileImage: {
@@ -34,17 +32,60 @@ var validator = $("#profileForm").validate({
   },
   submitHandler: function(form) {
     $.ajax({
-      url: form.action,
-      type: form.method,
+      url: '/profile',
+      type: 'POST',
       data: new FormData(),
+      processData: true,
       success: function(response) {
         console.log(response);
+
+        if (response) {
+          var obj = JSON.parse(response);
+          var status = obj.status;
+
+          if (status === 1) {
+            window.location.href = '/find'
+          } else if (status === 2) {}
+        }
       }
     });
   }
 });
 
 $(function() {
-  // validator.form();
+  $("#profileImage").change(function() {
+    readURL(this);
+  });
   $('#profileFirstName').focus();
+
+  loadUserProfileData();
 });
+
+function loadUserProfileData(userName) {
+  var userName = getCookie('userName');
+
+  if (userName) {
+    $.ajax({
+      url: '/getUserProfile',
+      type: 'POST',
+      data: JSON.stringify({
+        userName: userName
+      }),
+      success: function(response) {
+        console.log(response);
+      }
+    });
+  }
+}
+
+function readURL(input) {
+  if (input.files && input.files[0]) {
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      $('#imagePreview').css('background-image', 'url(' + e.target.result + ')');
+      $('#imagePreview').hide();
+      $('#imagePreview').fadeIn(650);
+    }
+    reader.readAsDataURL(input.files[0]);
+  }
+}

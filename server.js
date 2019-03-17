@@ -39,14 +39,15 @@ const meanSchema = require('./mean_schema.js').meanSchema;
 const User = mongoose.model('User', meanSchema);
 
 mongoose.connection.once('open', function() {
-  console.log("Open connection!");
+  console.log("Connected to MongoDB at " + MONGO_URL);
 });
 
-function insert(str, index, value) {
-  return str.substr(0, index) + value + str.substr(index);
-}
-
 var server = http.createServer(function(request, response) {
+  var cookies = parseCookies(request.headers.cookie);
+  //console.log(cookies);
+  var activeUser = cookies.userName;
+  console.log('Cookie: ' + activeUser);
+
   if (request.method == 'GET') {
     console.log('GET request', request.url);
 
@@ -136,52 +137,90 @@ var server = http.createServer(function(request, response) {
         var form = new formidable.IncomingForm();
 
         form.parse(request, function(err, fields, files) {
-          console.log('err');
-          console.log(err);
-          console.log('fields');
-          console.log(fields);
-          console.log('files');
-          console.log(files);
+          if (err) {
+            response.writeHead(200);
+            response.end(JSON.stringify({
+              status: 2
+            }));
+            return;
+          }
+
+          //console.log(fields);
+
+          User.findOne({
+            userName: activeUser
+          }).exec(function(err, doc) {
+            if (err) {
+              response.writeHead(200);
+              response.end(JSON.stringify({
+                status: 2
+              }));
+              return;
+            }
+
+            if (doc) {
+              doc.firstName = fields.profileFirstName;
+              if (doc.firstName) doc.firstName.trim();
+
+              doc.lastName = fields.profileLastName;
+              if (doc.lastName) doc.lastName.trim();
+
+              doc.interests = fields.profileInterests;
+              if (doc.interests) doc.interests.replace(/\s*,\s*/g, ',').trim();
+
+              doc.state = fields.profileLocality;
+              if (doc.state) doc.state.trim();
+
+              doc.save();
+            }
+          });
         });
 
         form.onPart = function(part) {
           if (part.name === 'profileImage') {
             if (part.filename && part.filename.length > 0) {
-              console.log('image full');
-            } else {
-              console.log('image empty');
-            }
-            console.log(part);
-
-            let fileBuffer;
-            let chunks = [];
-            let fileStream = part;
-            fileStream.on('data', function(chunk) {
-              console.log('here');
-              chunks.push(chunk);
-            });
-            fileStream.once('end', function() {
-              fileBuffer = Buffer.concat(chunks);
-              console.log(fileBuffer);
-
-              User.findOne({
-                userName: "jared@jaredible.net"
-              }).exec(function(err, doc) {
-                if (err) throw err;
-
-                if (doc) {
-                  doc.profileImage = fileBuffer;
-                  doc.save();
-                }
+              let fileBuffer;
+              let chunks = [];
+              let fileStream = part;
+              fileStream.on('data', function(chunk) {
+                chunks.push(chunk);
               });
-            });
+              fileStream.once('end', function() {
+                fileBuffer = Buffer.concat(chunks);
+
+                User.findOne({
+                  userName: activeUser
+                }).exec(function(err, doc) {
+                  if (err) {
+                    response.writeHead(200);
+                    response.end(JSON.stringify({
+                      status: 2
+                    }));
+                    return;
+                  }
+
+                  if (doc) {
+                    doc.profileImage = fileBuffer;
+                    doc.save();
+                  }
+                });
+              });
+            }
           } else {
-            console.log('field');
+            form.handlePart(part);
           }
         }
 
-        response.writeHead(200);
-        response.end('test');
+        fs.readFile(ROOT_DIR + '/find.html', function(error, content) {
+          if (error) {
+            response.writeHead(404);
+            response.end(JSON.stringify(error));
+            return;
+          }
+
+          response.writeHead(200);
+          response.end(content);
+        });
 
         break;
       default:
@@ -202,12 +241,41 @@ var server = http.createServer(function(request, response) {
             case '/index':
               break;
             case '/find':
+              var post = JSON.parse(body);
+
+              //console.log(post);
+
+              var regex = new RegExp(post.searchText, 'g');
+
+              var query = {
+                userName: {
+                  $ne: activeUser
+                }
+              };
+
+              if (post.searchOption === 1) {
+                query.interests = regex;
+              } else if (post.searchOption === 2) {
+                query.state = regex;
+              }
+
+              User.find(query, {
+                password: 0,
+                profileImage: 0,
+                __v: 0
+              }, function(err, docs) {
+                //console.log(docs);
+
+                response.writeHead(200);
+                response.end(JSON.stringify(docs));
+              });
+
               break;
             case '/register':
               var post = qs.parse(body);
 
-              var username = post.registrationUsername;
-              var password = post.registrationPassword;
+              var username = post.registrationUsername.trim();
+              var password = post.registrationPassword.trim();
 
               bcrypt.hash(password, 10, function(err, hash) {
                 var newUser = new User({
@@ -248,7 +316,9 @@ var server = http.createServer(function(request, response) {
                       if (err) throw err;
 
                       if (res) {
-                        response.writeHead(200);
+                        response.writeHead(200, {
+                          'Set-Cookie': 'userName=' + username + '; expires=' + new Date(new Date().getTime() + (1 * 24 * 60 * 60 * 1000)).toUTCString()
+                        });
                         response.end(JSON.stringify({
                           status: 1
                         }));
@@ -265,7 +335,7 @@ var server = http.createServer(function(request, response) {
 
               break;
             case '/getUsernameStatus':
-              post = JSON.parse(body);
+              var post = JSON.parse(body);
 
               var username = post.userName;
 
@@ -288,6 +358,8 @@ var server = http.createServer(function(request, response) {
               }
 
               break;
+            case "/getUserProfile":
+              break;
             default:
               break;
           }
@@ -300,6 +372,26 @@ var server = http.createServer(function(request, response) {
 
 function hasEmailFormat(value) {
   return /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{1,5})$/.test(value);
+}
+
+function insert(str, index, value) {
+  return str.substr(0, index) + value + str.substr(index);
+}
+
+function parseCookies(cookie) {
+  if (cookie) {
+    return cookie.split(';').reduce(
+      function(prev, curr) {
+        var m = / *([^=]+)=(.*)/.exec(curr);
+        var key = m[1];
+        var value = decodeURIComponent(m[2]);
+        prev[key] = value;
+        return prev;
+      }, {}
+    );
+  } else {
+    return {}
+  }
 }
 
 server.listen(PORT, HOST);
