@@ -1,68 +1,52 @@
-var http = require('http');
-var qs = require('querystring');
-var fs = require('fs');
-var path = require('path');
-var url = require('url');
-var process = require('process');
+const http = require('http');
+const qs = require('querystring');
+const fs = require('fs');
+const path = require('path');
+const url = require('url');
+const process = require('process');
+const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const formidable = require('formidable');
+const config = require('./config.json');
 
-const PORT = process.env.port || 8069;
+const ROOT_DIR = config.ROOT_DIR || 'views';
+const PORT = process.env.port || config.PORT || 8080;
 const HOST = process.env.host || 'localhost';
 const ENV = process.env.NODE_ENV || 'development';
 
-var mongoose = require('mongoose');
-var db = mongoose.connect('mongodb://localhost/mean', {
+var MONGO_URL = "mongodb://localhost/mean";
+var MONGO_USERNAME = "matchMaker";
+var MONGO_PASSWORD = "p@ssw0rd";
+
+try {
+  var private = require('./private.json');
+  MONGO_URL = private.MONGO_URL;
+  MONGO_USERNAME = private.MONGO_USERNAME;
+  MONGO_PASSWORD = private.MONGO_PASSWORD;
+} catch (e) {
+  console.log(e);
+}
+
+mongoose.connect(MONGO_URL, {
+  auth: {
+    user: MONGO_USERNAME,
+    password: MONGO_PASSWORD
+  },
   useNewUrlParser: true
 });
-//auth: {
-//  user: 'matchMaker',
-//  password: 'p@ssw0rd'
-//},
-var Schema = mongoose.Schema;
-var profileSchema = new Schema({
-  userName: {
-    type: String,
-    required: true,
-    max: 50
-  },
-  password: {
-    type: String,
-    required: true
-  },
-  firstName: {
-    type: String,
-    max: 50
-  },
-  lastName: {
-    type: String,
-    max: 50
-  },
-  profileImage: Buffer,
-  interests: {
-    type: String,
-    max: 2000
-  },
-  state: {
-    type: String,
-    max: 52
-  }
+mongoose.set('useCreateIndex', true);
+const meanSchema = require('./mean_schema.js').meanSchema;
+const User = mongoose.model('User', meanSchema);
+
+mongoose.connection.once('open', function() {
+  console.log("Open connection!");
 });
-var Profile = mongoose.model('Profile', profileSchema);
-
-//var me = new Profile({
-//  userName: "idc",
-//  password: "Testing"
-//});
-
-//me.save((err, profile) => {
-//  if (err) throw err;
-//  console.log(profile);
-//});
 
 function insert(str, index, value) {
   return str.substr(0, index) + value + str.substr(index);
 }
 
-var server = http.createServer((request, response) => {
+var server = http.createServer(function (request, response) {
   if (request.method == 'GET') {
     console.log('GET request', request.url);
 
@@ -97,7 +81,7 @@ var server = http.createServer((request, response) => {
     var extname = String(path.extname(filePath)).toLowerCase();
     switch (extname) {
       case '.html':
-        filePath = insert(filePath, 1, '/views');
+        filePath = insert(filePath, 1, path.join('/', ROOT_DIR));
         break;
       case '.js':
       case '.css':
@@ -125,7 +109,7 @@ var server = http.createServer((request, response) => {
     fs.readFile(filePath, (error, content) => {
       if (error) {
         if (error.code == 'ENOENT') {
-          fs.readFile('./views/404.html', (error, content) => {
+          fs.readFile('./' + ROOT_DIR + '/404.html', (error, content) => {
             response.writeHead(200, {
               'Content-Type': contentType
             });
@@ -145,126 +129,150 @@ var server = http.createServer((request, response) => {
   } else if (request.method == 'POST') {
     console.log('POST request', request.url);
 
-    var urlObj = url.parse(request.url, true, false);
+    var form = new formidable.IncomingForm();
 
-    switch (urlObj.pathname) {
-      case '/':
-      case '/index':
-        console.log('home page');
-        break;
-      case '/find':
-        console.log('finding');
-        break;
-      case '/profile':
-        console.log('on profile');
-        break;
-      case '/register':
-        var requestBody = '';
-        request.on('data', (data) => {
-          requestBody += data;
-        });
-        request.on('end', () => {
-          var formData = qs.parse(requestBody);
+    form.parse(request);
 
-          var username = formData.registrationUsername;
-          var password = formData.registrationPassword;
+    form.on('file', function (name, file) {
+      console.log('File incoming ' + file.name);
+    });
 
-          var validUsernameLength = username.length <= 50;
-          var validUsernameHasEmailFormat = hasEmailFormat(username);
-          var validUsername = username && validUsernameLength && validUsernameHasEmailFormat;
+    form.on('error', function (err) {
+      console.log('An error has occured: \n' + err);
+    });
 
-          if (validUsername) {
-            Profile.find({
-              userName: username
-            }, (err, docs) => {
-              checkUsernameExists(username, (error, exists) => {
-                if (exists) {
-                  sendJSON(response, {
-                    usernameExists: true
-                  });
-                } else {
-                  new Profile({
-                    userName: username,
-                    password: password
-                  }).save((err, profile) => {
-                    if (err) throw err;
-                    sendJSON(response, {
-                      successful: true
-                    });
-                  });
-                }
-              });
+    form.on('end', function () {
+      console.log('end');
+    });
+
+    response.writeHead(200);
+    response.end('test');
+
+    var body = '';
+
+    request.on('data', function(data) {
+      body += data;
+
+      if (body.length > 1e6) {
+        request.connection.destroy();
+        mongoose.disconnect();
+      }
+    });
+
+    request.on('end', function() {
+      var urlObj = url.parse(request.url, true, false);
+
+      switch (urlObj.pathname) {
+        case '/':
+        case '/index':
+          break;
+        case '/find':
+          break;
+        case '/profile':
+          var post = qs.parse(body);
+          //console.log(post);
+
+
+
+          console.log('here');
+
+          response.writeHead(200);
+          response.end('test');
+
+          break;
+        case '/register':
+          var post = qs.parse(body);
+
+          var username = post.registrationUsername;
+          var password = post.registrationPassword;
+
+          bcrypt.hash(password, 10, function(err, hash) {
+            var newUser = new User({
+              userName: username,
+              password: hash
             });
-          } else {
-            sendJSON(response, {
-              errors: {
-                maxlength: validUsernameLength,
-                hasEmailFormat: validUsernameHasEmailFormat
+
+            newUser.save({}, function(err, doc) {
+              if (err) {
+                console.log(err);
+                response.writeHead(200);
+                response.end(JSON.stringify({
+                  status: 2
+                }));
+              } else {
+                console.log('Saved document: ' + doc);
+                response.writeHead(200);
+                response.end(JSON.stringify({
+                  status: 1
+                }));
+              }
+            });
+          });
+
+          break;
+        case '/login':
+          var post = qs.parse(body);
+
+          var username = post.loginUsername;
+          var password = post.loginPassword;
+
+          if (username) {
+            User.findOne({
+              userName: username
+            }, function(err, doc) {
+              if (err) throw err;
+
+              if (doc) {
+                bcrypt.compare(password, doc.password, function(err, res) {
+                  if (err) throw err;
+
+                  if (res) {
+                    response.writeHead(200);
+                    response.end(JSON.stringify({
+                      status: 1
+                    }));
+                  } else {
+                    response.writeHead(200);
+                    response.end(JSON.stringify({
+                      status: 2
+                    }));
+                  }
+                });
               }
             });
           }
-        });
 
-        break;
-      case '/login':
-        console.log('logging in');
-        break;
-      case '/getUsernameStatus':
-        var requestBody = '';
-        request.on('data', (data) => {
-          requestBody += data;
-        });
-        request.on('end', () => {
-          var bodyObj = JSON.parse(requestBody);
+          break;
+        case '/getUsernameStatus':
+          post = JSON.parse(body);
 
-          var username = bodyObj.registrationUsername;
+          var username = post.userName;
 
           if (username) {
-            var validUsernameLength = username.length <= 50;
-            var validUsernameHasEmailFormat = hasEmailFormat(username);
-            var validUsername = username && validUsernameLength && validUsernameHasEmailFormat;
-
-            if (validUsername) {
-              if (checkUsernameExists(username, (error, exists) => {
-                if (exists) {
-                  sendJSON(response, {
-                    available: false
-                  });
-                } else {
-                  sendJSON(response, {
-                    available: true
-                  });
-                }
-              }));
-            } else {
-              sendJSON(response, {
-                errors: []
-              });
-            }
+            User.findOne({
+              userName: username
+            }, function(err, doc) {
+              if (doc || err) {
+                response.writeHead(200);
+                response.end(JSON.stringify({
+                  status: 2
+                }));
+              } else {
+                response.writeHead(200);
+                response.end(JSON.stringify({
+                  status: 1
+                }));
+              }
+            });
           }
-        });
 
-        break;
-      default:
-        break;
-    }
+          break;
+        default:
+          break;
+      }
+    });
   }
 });
-
-function sendJSON(response, data) {
-  response.writeHead(200, {
-    'Content-Type': 'application/json'
-  });
-  response.end(JSON.stringify(data));
-}
-
-function checkUsernameExists(username, callback) {
-  Profile.find({
-    userName: username
-  }, (err, docs) => {
-    callback(err, docs.length);
-  });
-}
 
 function hasEmailFormat(value) {
   return /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{1,5})$/.test(value);

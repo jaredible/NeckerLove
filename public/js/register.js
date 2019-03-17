@@ -30,17 +30,15 @@ var validator = $("#registrationForm").validate({
       type: form.method,
       data: $(form).serialize(),
       success: function(response) {
-        var usernameExists = response.usernameExists;
-        var errors = response.errors;
-        var successful = response.successful;
+        if (response) {
+          var obj = JSON.parse(response);
+          var status = obj.status;
 
-        if (usernameExists) {
-          console.log('OnSubmit: Username already exists!');
-          usernameAvailable = false;
-        } else if (errors) {
-          console.log('OnSubmit: ' + errors);
-        } else if (successful) {
-          window.location.href = '/login';
+          if (status === 1) {
+            window.location.href = '/login';
+          } else if (status === 2) {
+            usernameAvailable = false;
+          }
         }
 
         validator.form();
@@ -66,22 +64,25 @@ $.validator.addMethod('checkUsernameAvailable', function(value, element) {
       url: '/getUsernameStatus',
       type: 'POST',
       data: JSON.stringify({
-        registrationUsername: element.value
+        userName: element.value
       }),
       success: function(response) {
         validating = false;
 
-        var previousUsernameAvailable = usernameAvailable;
+        if (response) {
+          var obj = JSON.parse(response);
+          var status = obj.status;
 
-        var available = response.available;
-        var errors = response.errors;
-        if (errors) {
-          console.log('checkUsernameAvailable: ' + errors);
-        } else {
-          usernameAvailable = available;
+          var previousUsernameAvailable = usernameAvailable;
+
+          if (status === 1) {
+            usernameAvailable = true;
+          } else if (status === 2) {
+            usernameAvailable = false;
+          }
+
+          if (usernameAvailable !== previousUsernameAvailable) validator.form();
         }
-
-        if (usernameAvailable != previousUsernameAvailable) validator.form();
       }
     });
   }

@@ -9,7 +9,6 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.12.0/css/bootstrap-tokenfield.min.css">
   <link rel="stylesheet" type="text/css" href="/css/main.css">
 </head>
 
@@ -35,40 +34,35 @@
 
   <div class="content">
     <div class="login-box">
-      <form class="login-form" action="/profile" method="post">
+      <form id="profileForm" class="login-form" enctype="multipart/form-data" action="/profile" method="POST" novalidate>
         <div class="avatar-upload">
           <div class="avatar-edit">
-            <input type='file' id="imageUpload" name="profilePicture" accept=".png, .jpg, .jpeg">
-            <label for="imageUpload"></label>
+            <label for="profileImage"></label>
           </div>
           <div class="avatar-preview">
             <div id="imagePreview"></div>
           </div>
         </div>
-        <input type="text" class="txtb" name="firstName" placeholder="First Name">
-        <input type="text" class="txtb" name="lastName" placeholder="Last Name">
-        <input type="text" id="tokenfield" class="" name="interests" placeholder="Interests...">
-        <input type="text" class="txtb" name="locality" placeholder="Locality">
-        <input type="submit" class="login-btn" name="" value="Save">
+        <input id="profileImage" type='file' name="profileImage">
+        <input id="profileFirstName" type="text" class="txtb" name="profileFirstName" placeholder="First Name">
+        <input id="profileLastName" type="text" class="txtb" name="profileLastName" placeholder="Last Name">
+        <input id="profileInterests" type="text" class="txtb" name="profileInterests" placeholder="Interests">
+        <input id="profileLocality" type="text" class="txtb" name="profileLocality" placeholder="Locality">
+        <input id="profileSubmit" type="submit" class="login-btn" name="" value="Save">
       </form>
 
       <footer class="footer">
         <div class="footer-container">
-          <small class="copyright">
-            Designed with
-            <i class="fas fa-heart"></i>
-            by
-            <a href="http://jareddiehl.me"> Jared Diehl</a>
-          </small>
+          <small class="copyright">Designed with <i class="fas fa-heart"></i> by <a href="http://jareddiehl.me">Jared Diehl</a></small>
         </div>
       </footer>
     </div>
   </div>
 
   <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tokenfield/0.12.0/bootstrap-tokenfield.min.js"></script>
-  <!--<script src="/js/main.js"></script>-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/additional-methods.min.js"></script>
+  <script src="/js/main.js"></script>
   <script src="/js/profile.js"></script>
 </body>
 

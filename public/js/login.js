@@ -15,7 +15,7 @@ var validator = $("#loginForm").validate({
   },
   unhighlight: function(element) {
     var ele = $(element);
-    ele.removeClass('is-invalid').addClass('is-valid');
+    ele.removeClass('is-invalid');
   },
   errorPlacement: function(error, element) {
     error.insertBefore(element);
@@ -28,14 +28,29 @@ var validator = $("#loginForm").validate({
       success: function(response) {
         console.log(response);
 
-        validator.form();
+        if (response) {
+          var obj = JSON.parse(response);
+          var status = obj.status;
+
+          if (status === 1) {
+            validator.resetForm();
+            window.location.href = '/profile?user=' + form.loginUsername.value;
+          } else if (status === 2) {
+            validator.showErrors({
+              "loginUsername": "The username or password is incorrect.",
+              "loginPassword": ""
+            });
+          }
+        }
+
+        //validator.form();
       }
     });
   }
 });
 
 $(function() {
-  validator.form();
+  // validator.form();
   $('#loginUsername').focus();
 });
 
