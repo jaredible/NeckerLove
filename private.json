@@ -1,0 +1,5 @@
+{
+  "MONGO_URL": "mongodb://localhost/mean",
+  "MONGO_USERNAME": "matchMaker",
+  "MONGO_PASSWORD": "p@ssw0rd"
+}
