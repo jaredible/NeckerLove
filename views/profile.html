@@ -34,16 +34,16 @@
 
   <div class="content">
     <div class="login-box">
-      <form id="profileForm" class="login-form" enctype="multipart/form-data" action="/profile" method="POST" novalidate>
+      <form id="profileForm" class="login-form" action="/profile" enctype="multipart/form-data" method="POST" novalidate>
         <div class="avatar-upload">
           <div class="avatar-edit">
+            <input id="profileImage" type='file' name="profileImage" accept="image/*">
             <label for="profileImage"></label>
           </div>
           <div class="avatar-preview">
             <div id="imagePreview"></div>
           </div>
         </div>
-        <input id="profileImage" type='file' name="profileImage">
         <input id="profileFirstName" type="text" class="txtb" name="profileFirstName" placeholder="First Name">
         <input id="profileLastName" type="text" class="txtb" name="profileLastName" placeholder="Last Name">
         <input id="profileInterests" type="text" class="txtb" name="profileInterests" placeholder="Interests">

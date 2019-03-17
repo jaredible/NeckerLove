@@ -46,7 +46,7 @@ function insert(str, index, value) {
   return str.substr(0, index) + value + str.substr(index);
 }
 
-var server = http.createServer(function (request, response) {
+var server = http.createServer(function(request, response) {
   if (request.method == 'GET') {
     console.log('GET request', request.url);
 
@@ -129,148 +129,172 @@ var server = http.createServer(function (request, response) {
   } else if (request.method == 'POST') {
     console.log('POST request', request.url);
 
-    var form = new formidable.IncomingForm();
+    var urlObj = url.parse(request.url, true, false);
 
-    form.parse(request);
+    switch (urlObj.pathname) {
+      case "/profile":
+        var form = new formidable.IncomingForm();
 
-    form.on('file', function (name, file) {
-      console.log('File incoming ' + file.name);
-    });
+        form.parse(request, function(err, fields, files) {
+          console.log('err');
+          console.log(err);
+          console.log('fields');
+          console.log(fields);
+          console.log('files');
+          console.log(files);
+        });
 
-    form.on('error', function (err) {
-      console.log('An error has occured: \n' + err);
-    });
+        form.onPart = function(part) {
+          if (part.name === 'profileImage') {
+            if (part.filename && part.filename.length > 0) {
+              console.log('image full');
+            } else {
+              console.log('image empty');
+            }
+            console.log(part);
 
-    form.on('end', function () {
-      console.log('end');
-    });
-
-    response.writeHead(200);
-    response.end('test');
-
-    var body = '';
-
-    request.on('data', function(data) {
-      body += data;
-
-      if (body.length > 1e6) {
-        request.connection.destroy();
-        mongoose.disconnect();
-      }
-    });
-
-    request.on('end', function() {
-      var urlObj = url.parse(request.url, true, false);
-
-      switch (urlObj.pathname) {
-        case '/':
-        case '/index':
-          break;
-        case '/find':
-          break;
-        case '/profile':
-          var post = qs.parse(body);
-          //console.log(post);
-
-
-
-          console.log('here');
-
-          response.writeHead(200);
-          response.end('test');
-
-          break;
-        case '/register':
-          var post = qs.parse(body);
-
-          var username = post.registrationUsername;
-          var password = post.registrationPassword;
-
-          bcrypt.hash(password, 10, function(err, hash) {
-            var newUser = new User({
-              userName: username,
-              password: hash
+            let fileBuffer;
+            let chunks = [];
+            let fileStream = part;
+            fileStream.on('data', function(chunk) {
+              console.log('here');
+              chunks.push(chunk);
             });
+            fileStream.once('end', function() {
+              fileBuffer = Buffer.concat(chunks);
+              console.log(fileBuffer);
 
-            newUser.save({}, function(err, doc) {
-              if (err) {
-                console.log(err);
-                response.writeHead(200);
-                response.end(JSON.stringify({
-                  status: 2
-                }));
-              } else {
-                console.log('Saved document: ' + doc);
-                response.writeHead(200);
-                response.end(JSON.stringify({
-                  status: 1
-                }));
-              }
+              User.findOne({
+                userName: "jared@jaredible.net"
+              }).exec(function(err, doc) {
+                if (err) throw err;
+
+                if (doc) {
+                  doc.profileImage = fileBuffer;
+                  doc.save();
+                }
+              });
             });
-          });
+          } else {
+            console.log('field');
+          }
+        }
 
-          break;
-        case '/login':
-          var post = qs.parse(body);
+        response.writeHead(200);
+        response.end('test');
 
-          var username = post.loginUsername;
-          var password = post.loginPassword;
+        break;
+      default:
+        var body = '';
 
-          if (username) {
-            User.findOne({
-              userName: username
-            }, function(err, doc) {
-              if (err) throw err;
+        request.on('data', function(data) {
+          body += data;
 
-              if (doc) {
-                bcrypt.compare(password, doc.password, function(err, res) {
-                  if (err) throw err;
+          if (body.length > 1e6) {
+            request.connection.destroy();
+            mongoose.disconnect();
+          }
+        });
 
-                  if (res) {
-                    response.writeHead(200);
-                    response.end(JSON.stringify({
-                      status: 1
-                    }));
-                  } else {
+        request.on('end', function() {
+          switch (urlObj.pathname) {
+            case '/':
+            case '/index':
+              break;
+            case '/find':
+              break;
+            case '/register':
+              var post = qs.parse(body);
+
+              var username = post.registrationUsername;
+              var password = post.registrationPassword;
+
+              bcrypt.hash(password, 10, function(err, hash) {
+                var newUser = new User({
+                  userName: username,
+                  password: hash
+                });
+
+                newUser.save({}, function(err, doc) {
+                  if (err) {
                     response.writeHead(200);
                     response.end(JSON.stringify({
                       status: 2
                     }));
+                  } else {
+                    response.writeHead(200);
+                    response.end(JSON.stringify({
+                      status: 1
+                    }));
+                  }
+                });
+              });
+
+              break;
+            case '/login':
+              var post = qs.parse(body);
+
+              var username = post.loginUsername;
+              var password = post.loginPassword;
+
+              if (username) {
+                User.findOne({
+                  userName: username
+                }, function(err, doc) {
+                  if (err) throw err;
+
+                  if (doc) {
+                    bcrypt.compare(password, doc.password, function(err, res) {
+                      if (err) throw err;
+
+                      if (res) {
+                        response.writeHead(200);
+                        response.end(JSON.stringify({
+                          status: 1
+                        }));
+                      } else {
+                        response.writeHead(200);
+                        response.end(JSON.stringify({
+                          status: 2
+                        }));
+                      }
+                    });
                   }
                 });
               }
-            });
-          }
 
-          break;
-        case '/getUsernameStatus':
-          post = JSON.parse(body);
+              break;
+            case '/getUsernameStatus':
+              post = JSON.parse(body);
 
-          var username = post.userName;
+              var username = post.userName;
 
-          if (username) {
-            User.findOne({
-              userName: username
-            }, function(err, doc) {
-              if (doc || err) {
-                response.writeHead(200);
-                response.end(JSON.stringify({
-                  status: 2
-                }));
-              } else {
-                response.writeHead(200);
-                response.end(JSON.stringify({
-                  status: 1
-                }));
+              if (username) {
+                User.findOne({
+                  userName: username
+                }, function(err, doc) {
+                  if (doc || err) {
+                    response.writeHead(200);
+                    response.end(JSON.stringify({
+                      status: 2
+                    }));
+                  } else {
+                    response.writeHead(200);
+                    response.end(JSON.stringify({
+                      status: 1
+                    }));
+                  }
+                });
               }
-            });
-          }
 
-          break;
-        default:
-          break;
-      }
-    });
+              break;
+            default:
+              break;
+          }
+        });
+
+        break;
+    }
   }
 });
 
