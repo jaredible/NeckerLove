@@ -5,7 +5,7 @@ const path = require('path');
 const url = require('url');
 const process = require('process');
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const formidable = require('formidable');
 const config = require('./config.json');
 
@@ -322,13 +322,21 @@ var server = http.createServer(function(request, response) {
                         response.end(JSON.stringify({
                           status: 1
                         }));
+                        return;
                       } else {
                         response.writeHead(200);
                         response.end(JSON.stringify({
                           status: 2
                         }));
+                        return;
                       }
                     });
+                  } else {
+                    response.writeHead(200);
+                    response.end(JSON.stringify({
+                      status: 2
+                    }));
+                    return;
                   }
                 });
               }
