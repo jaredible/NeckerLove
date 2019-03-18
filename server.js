@@ -220,6 +220,7 @@ var server = http.createServer(function(request, response) {
 
           response.writeHead(200);
           response.end(content);
+          return;
         });
 
         break;
@@ -276,27 +277,38 @@ var server = http.createServer(function(request, response) {
 
               var username = post.registrationUsername.trim();
               var password = post.registrationPassword.trim();
+              var validUsername = username && hasEmailFormat(username);
 
-              bcrypt.hash(password, 10, function(err, hash) {
-                var newUser = new User({
-                  userName: username,
-                  password: hash
-                });
+              if (validUsername) {
+                bcrypt.hash(password, 10, function(err, hash) {
+                  var newUser = new User({
+                    userName: username,
+                    password: hash
+                  });
 
-                newUser.save({}, function(err, doc) {
-                  if (err) {
-                    response.writeHead(200);
-                    response.end(JSON.stringify({
-                      status: 2
-                    }));
-                  } else {
-                    response.writeHead(200);
-                    response.end(JSON.stringify({
-                      status: 1
-                    }));
-                  }
+                  newUser.save({}, function(err, doc) {
+                    if (err) {
+                      response.writeHead(200);
+                      response.end(JSON.stringify({
+                        status: 2
+                      }));
+                      return;
+                    } else {
+                      response.writeHead(200);
+                      response.end(JSON.stringify({
+                        status: 1
+                      }));
+                      return;
+                    }
+                  });
                 });
-              });
+              } else {
+                response.writeHead(200);
+                response.end(JSON.stringify({
+                  status: 2
+                }));
+                return;
+              }
 
               break;
             case '/login':
@@ -304,8 +316,9 @@ var server = http.createServer(function(request, response) {
 
               var username = post.loginUsername;
               var password = post.loginPassword;
+              var validUsername = username && hasEmailFormat(username);
 
-              if (username) {
+              if (validUsername) {
                 User.findOne({
                   userName: username
                 }, function(err, doc) {
@@ -356,11 +369,13 @@ var server = http.createServer(function(request, response) {
                     response.end(JSON.stringify({
                       status: 2
                     }));
+                    return;
                   } else {
                     response.writeHead(200);
                     response.end(JSON.stringify({
                       status: 1
                     }));
+                    return;
                   }
                 });
               }
@@ -379,6 +394,7 @@ var server = http.createServer(function(request, response) {
 });
 
 function hasEmailFormat(value) {
+  if (!value) return false;
   return /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{1,5})$/.test(value);
 }
 

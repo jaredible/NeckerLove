@@ -41,7 +41,7 @@ var validator = $("#registrationForm").validate({
           }
         }
 
-        validator.form();
+        //validator.form();
       }
     });
   }
