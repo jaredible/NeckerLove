@@ -19,7 +19,9 @@
   "homepage": "https://github.com/jaredible/NeckerLove#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "express": "^4.16.4",
     "formidable": "^1.2.1",
-    "mongoose": "^5.4.16"
+    "mongoose": "^5.4.19",
+    "pug": "^2.0.3"
   }
 }
