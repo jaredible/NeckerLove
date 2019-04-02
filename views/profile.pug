@@ -1,0 +1,41 @@
+extends layouts/main.pug
+
+block head
+  link(rel='stylesheet', href='/css/profile.css')
+
+block header
+  header(class='header')
+    h2(class='logo')
+      a(href='/')
+        i(class='fas fa-heart')
+        |  NeckerLove
+    input(type='checkbox', id='chk')
+    label(for='chk', class='show-menu-btn')
+      i(class='fas fa-ellipsis-h')
+    ul(class='menu')
+      a(href='/') Home
+      a(href='/search') Search
+      a(href='/account/profile') Profile
+      a(href='/account/register') Register
+      a(href='/account/login') Login
+      label(for='chk', class='hide-menu-btn')
+        i(class='fas fa-times')
+
+block content
+  div(class='content')
+    div(class='login-box')
+      form(id='profileForm', class='login-form', action='/account/profile', method='post', novalidate)
+        div(class='avatar-upload')
+          div(class='avatar-edit')
+            input(id='profileImage', type='file', name='profileImage', accept='image/*')
+            label(for='profileImage')
+          div(class='avatar-preview')
+            div(id='imagePreview')
+        input(id='profileFirstName', type='text', class='txtb', name='profileFirstName', placeholder='First Name')
+        input(id='profileLastName', type='text', class='txtb', name='profileLastName', placeholder='First Name')
+        input(id='profileInterests', type='text', class='txtb', name='profileInterests', placeholder='First Name')
+        input(id='profileLocality', type='text', class='txtb', name='profileLocality', placeholder='First Name')
+        input(id='profileSubmit', type='submit', class='login-btn', value='Save')
+
+block scripts
+  script(src='/js/profile.js')

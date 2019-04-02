@@ -1,0 +1,59 @@
+extends layouts/main.pug
+
+block head
+  link(rel='stylesheet', href='/css/search.css')
+
+block header
+  header(class='header')
+    h2(class='logo')
+      a(href='/')
+        i(class='fas fa-heart')
+        |  NeckerLove
+    input(type='checkbox', id='chk')
+    label(for='chk', class='show-menu-btn')
+      i(class='fas fa-ellipsis-h')
+    ul(class='menu')
+      a(href='/') Home
+      a(href='/search') Search
+      a(href='/account/profile') Profile
+      a(href='/account/register') Register
+      a(href='/account/login') Login
+      label(for='chk', class='hide-menu-btn')
+        i(class='fas fa-times')
+
+block content
+  div(class='container-wrapper')
+    div(class='container')
+      div(class='search-wrapper')
+        form(id='findForm', class='login-form', action='/account/login', method='post', novalidate)
+          div(class='wrapper')
+            div(class='toggle-radio')
+              input(type='radio', id='findInterests', class='toggle-option', name='toggle-option' value='interest', checked)
+              input(type='radio', id='findLocality', class='toggle-option', name='toggle-option' value='locality')
+              label(for='findInterests') Interests
+              label(for='findLocality') Locality
+              div(class='toggle-option-slider')
+          div(class='search')
+            div(class='search-box')
+              input(id='findSearch', class='search-txt', type='text', name='findSearch', placeholder='Type to search')
+              input(id='findSubmit', type='submit', class='search-btn', value='Find')
+      div(class='row')
+        div(class='column')
+          div(class='profile-card')
+            img(src='/img/profile_picture.jpg', alt='profile_picture')
+            h3(class='profile-name') Name
+            div(class='profile-info')
+              span(class='profile-locality') Locality
+              | &bull;
+              span(class='profile-interests') Interests
+        div(class='column')
+          div(class='profile-card')
+            img(src='/img/profile_picture.jpg', alt='profile_picture')
+            h3(class='profile-name') Name
+            div(class='profile-info')
+              span(class='profile-locality') Locality
+              | &bull;
+              span(class='profile-interests') Interests
+
+block scripts
+  script(src='/js/search.js')

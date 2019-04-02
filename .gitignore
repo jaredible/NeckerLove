@@ -3,7 +3,4 @@
 
 # misc
 *.DS_Store
-.tgz
-
-# private
-#private.json
+*tgz

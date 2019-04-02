@@ -6,8 +6,6 @@ const url = require('url');
 const process = require('process');
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
-const formidable = require('formidable');
-const config = require('./config.json');
 
 const ROOT_DIR = config.ROOT_DIR || 'views';
 const PORT = process.env.port || config.PORT || 8080;
