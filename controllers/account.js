@@ -4,12 +4,10 @@ exports.login = (req, res) => {
   if (req.method === 'POST') {
     email = req.body.inputEmail;
 
-    req.check('inputEmail', 'Invalid email address.').isLength({
-      min: 8
+    req.check('inputEmail', 'Invalid email address.').isEmail().isLength({
+      max: 50
     });
-    req.check('inputPassword', 'Password is invalid.').isLength({
-      min: 4
-    });
+    req.check('inputPassword', 'Password is invalid.').not().isEmpty(); // ?
 
     var errors = req.validationErrors();
     if (!errors) {
@@ -22,15 +20,33 @@ exports.login = (req, res) => {
     }
   }
 
-  res.render('login2', {
-    title: 'Login2',
+  res.render('login', {
+    title: 'Login',
     email: email
   });
 };
 
 exports.register = (req, res) => {
+  var email = '';
+
+  if (req.method === 'POST') {
+    email = req.body.inputEmail;
+
+    req.check('inputEmail', 'Invalid email address.').isEmail().isLength({
+      max: 50
+    });
+    req.check('inputPassword', 'Password is invalid.').not().isEmpty(); // ?
+
+    var errors = req.validationErrors();
+    if (!errors) {
+      res.redirect('/account/login');
+      return;
+    }
+  }
+
   res.render('register', {
-    title: 'Register'
+    title: 'Register',
+    email: email
   });
 };
 
