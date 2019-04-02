@@ -1,9 +1,8 @@
 const express = require('express');
 const router = express.Router();
 
-const homeController = require('../controllers/homeController');
+const homeController = require('../controllers/home');
 
 router.all('/', homeController.index);
-router.all('/search', homeController.search);
 
 module.exports = router;

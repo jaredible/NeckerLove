@@ -1,7 +1,7 @@
 extends layouts/main.pug
 
 block head
-  link(rel='stylesheet', href='/css/login.css')
+  //- link(rel='stylesheet', href='/css/login.css')
 
 block header
   header(class='header')
@@ -26,9 +26,9 @@ block content
     div(class='login-box')
       form(id='loginForm', class='login-form', action='/account/login', method='post', novalidate)
         h1 Login
-        input(id='loginUsername', class='txtb', type='email', name='loginUsername', placeholder='Username')
-        input(id='loginPassword', class='txtb', type='password', name='loginPassword', placeholder='Password')
-        input(id='loginSubmit', class='login-btn', type='submit', value='Login')
+        input(id='email', class='txtb', type='email', name='email', placeholder='Email')
+        input(id='password', class='txtb', type='password', name='password', placeholder='Password')
+        input(id='submit', class='login-btn', type='submit', value='Login')
 
 block scripts
-  script(src='/js/login.js')
+  //- script(src='/js/login.js')

@@ -1,0 +1,26 @@
+extends layouts/registration.pug
+
+block head
+  link(rel='stylesheet', href='/css/login.css')
+
+block content
+  form(class='form-login was-validated', action='/account/login', method='post', novalidate)
+    //- img(class='mb-4', width='72', height='72', src='/img/brand.png', alt='')
+    h1(class='h3 mb-3 font-weight-normal') Please log in
+    div(class='form-group')
+      label(for='inputEmail', class='sr-only') Email
+      input(type='email', name='inputEmail', id='inputEmail', class='form-control', placeholder='Email', value=email, required, autofocus)
+      div(class='invalid-feedback') Invalid email address.
+    div(class='form-group')
+      label(for='inputPassword', class='sr-only') Password
+      input(type='password', name='inputPassword', id='inputPassword', class='form-control', placeholder='Password', required)
+      div(class='invalid-feedback') Password is invalid.
+    div(class='checkbox mb-3')
+      label
+        input(type='checkbox', name='inputRememberMe')
+        |  Remember me
+    button(type='submit', class='btn btn-lg btn-primary btn-block') Log in
+    p(class='mt-5 mb-3 text-muted') &copy; 2019 Jaredible
+
+block scripts
+  //- script(src='/js/login.js')
