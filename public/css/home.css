@@ -4,7 +4,7 @@ a:hover {
   color: #fff;
 }
 
-a.home {
+a.masthome {
   text-decoration: none;
 }
 
@@ -87,7 +87,6 @@ body {
 
 .cover {
   padding: 0 1.5rem;
-  margin-top: 300px;
 }
 
 .cover h1 {
@@ -101,6 +100,14 @@ body {
 
 .mastfoot {
   color: rgba(255, 255, 255, .5);
+}
+
+.mastfoot .fa-heart {
+  color: #FB866A;
+}
+
+.mastfoot a {
+  text-decoration: none;
 }
 
 @media(max-width: 47em) {
