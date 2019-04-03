@@ -12,13 +12,13 @@ const indexRouter = require('./routes/index');
 const accountRouter = require('./routes/account');
 
 // https://code.tutsplus.com/tutorials/file-upload-with-multer-in-node--cms-32088
-//mongoose.connect('mongodb+srv://matchMaker:p%40ssw0rd@neckerlove-gen0b.mongodb.net/test?retryWrites=true', {
-//  useNewUrlParser: true,
-//  useCreateIndex: true
-//});
-//mongoose.connection.once('open', function() {
-//  console.log('Connected to MongoDB!');
-//});
+mongoose.connect('mongodb+srv://matchMaker:p%40ssw0rd@neckerlove-gen0b.mongodb.net/test?retryWrites=true', {
+  useNewUrlParser: true,
+  useCreateIndex: true
+});
+mongoose.connection.once('open', function() {
+  console.log('Connected to MongoDB!');
+});
 
 const app = express();
 
@@ -61,7 +61,7 @@ var storage = multer.diskStorage({
     cb(null, 'uploads');
   },
   filename: (req, file, cb) => {
-    cb(null, file.fieldname + '-' + Date.now() + '.png');
+    cb(null, file.fieldname + '-' + Date.now());
   }
 });
 var upload = multer({
@@ -69,6 +69,7 @@ var upload = multer({
 });
 
 app.post('/imageupload', upload.single('image'), (req, res) => {
+  console.log(req.body);
   const file = req.file;
   if (!file) {
     const error = new Error('Please upload a file');

@@ -39,6 +39,7 @@ exports.register = (req, res) => {
 
     var errors = req.validationErrors();
     if (!errors) {
+      console.log(req.session.user);
       res.redirect('/account/login');
       return;
     }
