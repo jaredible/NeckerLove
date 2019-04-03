@@ -12,13 +12,13 @@ const indexRouter = require('./routes/index');
 const accountRouter = require('./routes/account');
 
 // https://code.tutsplus.com/tutorials/file-upload-with-multer-in-node--cms-32088
-mongoose.connect('mongodb+srv://matchMaker:p%40ssw0rd@neckerlove-gen0b.mongodb.net/test?retryWrites=true', {
-  useNewUrlParser: true,
-  useCreateIndex: true
-});
-mongoose.connection.once('open', function() {
-  console.log('Connected to MongoDB!');
-});
+//mongoose.connect('mongodb+srv://matchMaker:p%40ssw0rd@neckerlove-gen0b.mongodb.net/test?retryWrites=true', {
+//  useNewUrlParser: true,
+//  useCreateIndex: true
+//});
+//mongoose.connection.once('open', function() {
+//  console.log('Connected to MongoDB!');
+//});
 
 const app = express();
 

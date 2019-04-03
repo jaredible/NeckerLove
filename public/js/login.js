@@ -1,59 +1,31 @@
-var validator = $("#loginForm").validate({
+$.validator.setDefaults({});
+
+var validator = $("#form-login").validate({
+  errorElement: "div",
+  errorClass: "invalid-response",
   rules: {
-    loginUsername: {
+    inputEmail: {
       required: true,
       maxlength: 50,
-      hasEmailFormat: true
+      email: true
     },
-    loginPassword: {
+    inputPassword: {
       required: true
     }
   },
-  highlight: function(element) {
+  highlight: function(element, errorClass) {
     var ele = $(element);
-    ele.removeClass('is-valid').addClass('is-invalid');
+    ele.removeClass("is-valid").addClass("is-invalid");
   },
-  unhighlight: function(element) {
+  unhighlight: function(element, errorClass) {
     var ele = $(element);
-    ele.removeClass('is-invalid');
-  },
-  errorPlacement: function(error, element) {
-    error.insertBefore(element);
+    ele.removeClass("is-invalid");
   },
   submitHandler: function(form) {
-    $.ajax({
-      url: form.action,
-      type: form.method,
-      data: $(form).serialize(),
-      success: function(response) {
-        console.log(response);
-
-        if (response) {
-          var obj = JSON.parse(response);
-          var status = obj.status;
-
-          if (status === 1) {
-            validator.resetForm();
-            window.location.href = '/profile?user=' + form.loginUsername.value;
-          } else if (status === 2) {
-            validator.showErrors({
-              "loginUsername": "The username or password is incorrect.",
-              "loginPassword": ""
-            });
-          }
-        }
-
-        //validator.form();
-      }
-    });
+    console.log("in here");
   }
 });
 
 $(function() {
-  // validator.form();
-  $('#loginUsername').focus();
+  validator.form();
 });
-
-$.validator.addMethod('hasEmailFormat', function(value, element) {
-  return this.optional(element) || /^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{1,5})$/.test(value);
-}, 'Please enter a valid email address.');

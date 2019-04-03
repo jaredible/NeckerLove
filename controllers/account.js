@@ -1,5 +1,6 @@
 exports.login = (req, res) => {
   var email = '';
+  var emailExists = false;
 
   if (req.method === 'POST') {
     email = req.body.inputEmail;
@@ -7,22 +8,25 @@ exports.login = (req, res) => {
     req.check('inputEmail', 'Invalid email address.').isEmail().isLength({
       max: 50
     });
-    req.check('inputPassword', 'Password is invalid.').not().isEmpty(); // ?
+    req.check('inputPassword', 'Password is invalid.').not().isEmpty();
 
     var errors = req.validationErrors();
-    if (!errors) {
-      req.session.user = {
-        email: req.body.email
-      };
+    //if (!errors) {
+    //  req.session.user = {
+    //    email: req.body.email
+    //  };
 
-      res.redirect('/');
-      return;
-    }
+    //  res.redirect('/');
+    //  return;
+    //}
+
+    emailExists = true;
   }
 
   res.render('login', {
     title: 'Login',
-    email: email
+    email: email,
+    emailExists: emailExists
   });
 };
 
