@@ -54,6 +54,30 @@ app.use((req, res, next) => {
 app.use('/', indexRouter);
 app.use('/account', accountRouter);
 
+// Testing
+const multer = require('multer');
+var storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, 'uploads');
+  },
+  filename: (req, file, cb) => {
+    cb(null, file.fieldname + '-' + Date.now() + '.png');
+  }
+});
+var upload = multer({
+  storage: storage
+});
+
+app.post('/imageupload', upload.single('image'), (req, res) => {
+  const file = req.file;
+  if (!file) {
+    const error = new Error('Please upload a file');
+    error.httpStatusCode = 400;
+    return next(error);
+  }
+  res.redirect('/');
+});
+
 app.use((req, res, next) => {
   var err = new Error('Not Found');
   err.status = 404;
