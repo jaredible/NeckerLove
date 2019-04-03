@@ -51,58 +51,12 @@ exports.register = (req, res) => {
 };
 
 exports.profile = (req, res) => {
+  if (req.method === 'POST') {
+    console.log(req.body);
+  }
+
   res.render('profile2', {
-    title: 'Profile',
-    matches: [
-      {
-        name: "test",
-        image: 'https://media.giphy.com/media/2Y8Iq3xe121Ba3hUAM/giphy.gif'
-      },
-      {
-        name: "test",
-        image: 'https://static.spin.com/files/2019/03/GettyImages-1130598318-1554059636-640x401.jpg'
-      },
-      {
-        name: "test",
-        image: 'https://i.redd.it/us1zz2mnv9m21.gif'
-      },
-      {
-        name: "test",
-        image: 'https://static.spin.com/files/2019/03/GettyImages-1130598318-1554059636-640x401.jpg'
-      },
-      {
-        name: "test",
-        image: 'https://media.giphy.com/media/2Y8Iq3xe121Ba3hUAM/giphy.gif'
-      },
-      {
-        name: 'test',
-        image: 'https://cdn-images-1.medium.com/max/1600/0*6JlKG-1uQK0kLh1V.gif'
-      },
-      {
-        name: "test",
-        image: 'https://media.giphy.com/media/2Y8Iq3xe121Ba3hUAM/giphy.gif'
-      },
-      {
-        name: "test",
-        image: 'https://static.spin.com/files/2019/03/GettyImages-1130598318-1554059636-640x401.jpg'
-      },
-      {
-        name: "test",
-        image: 'https://i.redd.it/us1zz2mnv9m21.gif'
-      },
-      {
-        name: "test",
-        image: 'https://static.spin.com/files/2019/03/GettyImages-1130598318-1554059636-640x401.jpg'
-      },
-      {
-        name: "test",
-        image: 'https://media.giphy.com/media/2Y8Iq3xe121Ba3hUAM/giphy.gif'
-      },
-      {
-        name: 'test',
-        image: 'https://cdn-images-1.medium.com/max/1600/0*6JlKG-1uQK0kLh1V.gif'
-      }
-    ]
+    title: 'Profile2'
   });
 };
 

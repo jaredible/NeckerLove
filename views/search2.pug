@@ -1,0 +1,55 @@
+doctype html
+html(lang='en', dir='ltr')
+  head
+    link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.1/css/all.css' integrity='sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr' crossorigin='anonymous')
+    include partials/head.pug
+    link(rel='stylesheet', href='/css/profile.css')
+  body(class='text-center')
+    div(class='cover-container d-flex h-100 p-3 mx-auto flex-column')
+      header(class='masthead mb-auto')
+        div(class='inner')
+          h3(class='masthead-brand')
+            a(href='/', class='masthome')
+              i(class='fas fa-heart')
+              |  NeckerLove
+          nav(class='nav nav-masthead justify-content-center')
+            a(class='nav-link active', href='/') Home
+            a(class='nav-link', href='/account/profile') Profile
+            a(href='/account/register', class='btn btn-lg btn-secondary') Log In
+
+      main(role='main', class='inner cover')
+        form(class='')
+          div(class='btn-group btn-group-toggle', data-toggle='buttons')
+            label(class='btn btn-secondary active')
+              input(type='radio', name='options', id='option1', autocomplete='off', checked)
+              |  Interests
+            label(class='btn btn-secondary')
+              input(type='radio', name='options', id='option2', autocomplete='off')
+              |  State
+          div(class='input-group mb-3')
+            input(type='text', class='form-control', placeholder='')
+            div(class='input-group-append')
+              button(type='button', id='button-search', class='btn btn-outline-secondary') Search
+        if matches
+          div(class='row')
+            each match in matches
+              div(class='col-xs-12 col-sm-6 col-md-4 mt-3 mb-2')
+                div(class='card')
+                  div(Class='card-body text-center')
+                    p
+                      img(class='img-fluid', src=match.image, alt='')
+                    h4(class='card-title text-dark') #{match.name}
+                    p(class='card-text text-dark') some text
+                    a(href='#', class='btn btn-primary btn-sm')
+                      i(class='fa fa-check')
+    
+      footer(class='mastfoot mt-auto')
+        div(class='inner')
+          p
+            | Designed by 
+            i(class='fas fa-heart')
+            |  by 
+            a(href='http://jareddiehl.me') Jared Diehl
+
+    include partials/scripts.pug
+    //- script(src='/js/profile.js')

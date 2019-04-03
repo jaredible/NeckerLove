@@ -18,30 +18,19 @@ html(lang='en', dir='ltr')
             a(href='/account/register', class='btn btn-lg btn-secondary') Log In
 
       main(role='main', class='inner cover')
-        form(class='')
-          div(class='btn-group btn-group-toggle', data-toggle='buttons')
-            label(class='btn btn-secondary active')
-              input(type='radio', name='options', id='option1', autocomplete='off', checked)
-              |  Interests
-            label(class='btn btn-secondary')
-              input(type='radio', name='options', id='option2', autocomplete='off')
-              |  State
-          div(class='input-group mb-3')
-            input(type='text', class='form-control', placeholder='')
-            div(class='input-group-append')
-              button(type='button', id='button-search', class='btn btn-outline-secondary') Search
-        if matches
-          div(class='row')
-            each match in matches
-              div(class='col-xs-12 col-sm-6 col-md-4 mt-3 mb-2')
-                div(class='card')
-                  div(Class='card-body text-center')
-                    p
-                      img(class='img-fluid', src=match.image, alt='')
-                    h4(class='card-title text-dark') #{match.name}
-                    p(class='card-text text-dark') some text
-                    a(href='#', class='btn btn-primary btn-sm')
-                      i(class='fa fa-check')
+        form(action='/imageupload', enctype='multipart/form-data', method='post', novalidate)
+          div(class='form-group')
+            input(type='file', name='image', accept='image/*')
+          div(class='form-group')
+            input(type='text', name='firstname', placeholder='First name...')
+          div(class='form-group')
+            input(type='text', name='lastname', placeholder='Last name...')
+          div(class='form-group')
+            input(type='text', name='interests', placeholder='Interests...')
+          div(class='form-group')
+            input(type='text', name='state', placeholder='State...')
+          div(class='form-group')
+            button(type='submit') Save
     
       footer(class='mastfoot mt-auto')
         div(class='inner')
