@@ -5,38 +5,41 @@ html(lang='en', dir='ltr')
     include partials/head.pug
     link(rel='stylesheet', href='/css/profile.css')
   body(class='text-center')
-    div(class='cover-container d-flex h-100 p-3 mx-auto flex-column')
+    div(class='cover-container d-flex h-100 p-3 mx-auto flex-column', style='width: 100%;')
       header(class='masthead mb-auto')
         div(class='inner')
           h3(class='masthead-brand')
             a(href='/', class='masthome')
               i(class='fas fa-heart')
               |  NeckerLove
-          nav(class='nav nav-masthead justify-content-center')
+          nav(class='nav nav-masthead justify-content-center mt-3')
             a(class='nav-link', href='/') Home
             a(class='nav-link active', href='/account/profile') Profile
-            a(href='/account/register', class='btn btn-lg btn-secondary') Log In
+            form(action='/account/logout', method='post')
+              button(type='submit', class='btn btn-lg btn-secondary link-login ml-3') Log out
 
       main(role='main', class='inner cover')
         form(action='/account/profile', enctype='multipart/form-data', method='post', novalidate)
-          div(class='form-group')
-            input(type='file', name='image', accept='image/*')
-          div(class='form-group')
-            input(type='text', name='firstname', class='form-control', placeholder='First name...', maxlength='50', autofocus)
-          div(class='form-group')
-            input(type='text', name='lastname', class='form-control', placeholder='Last name...', maxlength='50')
-          div(class='form-group')
-            input(type='text', name='interests', class='form-control', placeholder='Interests...', maxlength='2000')
-          div(class='form-group')
-            input(type='text', name='state', class='form-control', placeholder='State...', maxlength='52')
-          div(class='form-group')
-            button(type='submit') Save
+          div(class='input-group mb-3 mt-1 mb-1', style='width: 100%; max-width: 330px; margin: auto;')
+            input(type='file', name='image', class='form-control', accept='image/*')
+          div(class='input-group mb-3 mt-1 mb-1', style='width: 100%; max-width: 330px; margin: auto;')
+            input(type='text', name='firstname', class='form-control', placeholder='First name', autofocus)
+          div(class='input-group mb-3 mt-1 mb-1', style='width: 100%; max-width: 330px; margin: auto;')
+            input(type='text', name='lastname', class='form-control', placeholder='Last name')
+          div(class='input-group mb-3 mt-1 mb-1', style='width: 100%; max-width: 330px; margin: auto;')
+            input(type='text', name='interests', class='form-control', placeholder='Interests')
+          div(class='input-group mb-3 mt-1 mb-1', style='width: 100%; max-width: 330px; margin: auto;')
+            input(type='text', name='state', class='form-control', placeholder='State')
+          div(class='input-group mb-3 mt-1 mb-1', style='width: 100%; max-width: 330px; margin: auto;')
+            button(type='submit', class='btn btn-md btn-danger btn-block') Save
     
       footer(class='mastfoot mt-auto')
-        div(class='inner')
+        div(class='inner mt-3')
           p
-            | Designed by 
-            i(class='fas fa-heart')
+            | Designed with 
+            i(class='fas fa-exclamation')
+            | &nbsp;
+            i(class='fas fa-bed')
             |  by 
             a(href='http://jareddiehl.me') Jared Diehl
 

@@ -86,7 +86,9 @@ body {
 }
 
 .cover {
+  position: relative;
   padding: 0 1.5rem;
+  padding-top: 10rem;
 }
 
 .cover h1 {
@@ -108,6 +110,6 @@ body {
 
 @media(max-width: 47em) {
   .cover h1 {
-    font-size: 3rem;
+    font-size: 2rem;
   }
 }

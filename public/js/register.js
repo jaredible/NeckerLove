@@ -2,25 +2,42 @@ $.validator.setDefaults({
   debug: false
 });
 
-var validator = $("#form-login").validate({
+var validator = $("#form-register").validate({
   errorElement: "div",
   errorClass: "invalid-response",
   rules: {
     inputEmail: {
       required: true,
       maxlength: 50,
-      email: true
+      email: true,
+      remote: {
+        url: "test",
+        type: "post",
+        data: {
+          email: function() {
+            return $('#form-register:input[name="inputEmail"]').val();
+          }
+        }
+      }
     },
     inputPassword: {
       required: true
+    },
+    inputConfirm: {
+      required: false,
+      equalTo: "#inputPassword"
     }
   },
   messages: {
     inputEmail: {
-      required: "Email is required."
+      required: "Email is required.",
+      remote: "Email already in used."
     },
     inputPassword: {
       required: "Password is required."
+    },
+    inputConfirm: {
+      equalTo: "Please enter your password again."
     }
   },
   highlight: function(element, errorClass) {

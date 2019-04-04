@@ -12,21 +12,22 @@ html(lang='en', dir='ltr')
             a(href='/', class='masthome')
               i(class='fas fa-heart')
               |  NeckerLove
-          nav(class='nav nav-masthead justify-content-center')
+          nav(class='nav nav-masthead justify-content-center mt-3')
             a(class='nav-link active', href='/') Home
             a(class='nav-link', href='/account/profile') Profile
-            a(href='/account/register', class='btn btn-lg btn-secondary') Log In
+            form(action='/account/logout', method='post')
+              button(type='submit', class='btn btn-lg btn-secondary link-login ml-3') Log out
 
       main(role='main', class='inner cover')
         form(class='')
-          div(class='btn-group btn-group-toggle', data-toggle='buttons')
+          div(class='btn-group btn-group-toggle mt-5 mb-1', data-toggle='buttons')
             label(class='btn btn-secondary active')
               input(type='radio', name='options', id='option1', autocomplete='off', checked)
               |  Interests
             label(class='btn btn-secondary')
               input(type='radio', name='options', id='option2', autocomplete='off')
               |  State
-          div(class='input-group mb-3')
+          div(class='input-group mb-3 mt-1 mb-5', style='width: 100%; max-width: 330px; margin: auto;')
             input(type='text', class='form-control', placeholder='')
             div(class='input-group-append')
               button(type='button', id='button-search', class='btn btn-outline-secondary') Search
@@ -39,15 +40,17 @@ html(lang='en', dir='ltr')
                     p
                       img(class='img-fluid', src=match.image, alt='')
                     h4(class='card-title text-dark') #{match.name}
-                    p(class='card-text text-dark') some text
-                    a(href='#', class='btn btn-primary btn-sm')
+                    p(class='card-text text-dark') #{match.bio}
+                    button(class='btn btn-primary btn-sm')
                       i(class='fa fa-check')
     
       footer(class='mastfoot mt-auto')
-        div(class='inner')
+        div(class='inner mt-3')
           p
-            | Designed by 
-            i(class='fas fa-heart')
+            | Designed with 
+            i(class='fas fa-exclamation')
+            | &nbsp;
+            i(class='fas fa-bed')
             |  by 
             a(href='http://jareddiehl.me') Jared Diehl
 

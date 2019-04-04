@@ -4,19 +4,28 @@ block head
   link(rel='stylesheet', href='/css/login.css')
 
 block content
-  form(class='form-login was-validated', action='/account/login', method='post', novalidate)
-    //- img(class='mb-4', width='72', height='72', src='/img/brand.png', alt='')
+  form(id='form-register', class='form-login', action='/account/test2', method='post', novalidate)
+    a(href='/')
+      img(class='mb-4', width='72', height='72', src='/img/brand.png', alt='')
     h1(class='h3 mb-3 font-weight-normal') Welcome
     div(class='form-group')
-      label(for='inputEmail', class='sr-only') Email
       input(type='email', name='inputEmail', id='inputEmail', class='form-control', placeholder='Email', value=email, required, autofocus)
-      div(class='invalid-feedback') Invalid email address.
     div(class='form-group')
-      label(for='inputPassword', class='sr-only') Password
       input(type='password', name='inputPassword', id='inputPassword', class='form-control', placeholder='Password', required)
-      div(class='invalid-feedback') Password is invalid.
+    div(class='form-group')
+      input(type='password', name='inputConfirm', id='inputConfirm', class='form-control', placeholder='Confirm Password', required)
     button(type='submit', class='btn btn-lg btn-primary btn-block') Register
-    p(class='mt-5 mb-3 text-muted') &copy; 2019 Jaredible
+    p(class='mt-2 mb-2')
+      | Already have an account? 
+      a(href='/account/login') Log in
+    p(class='mt-4 mb-2 text-muted')
+      | Designed with 
+      i(class='fas fa-exclamation')
+      | &nbsp;
+      i(class='fas fa-bed')
+      |  by 
+      a(href='http://jareddiehl.me') Jared Diehl
 
 block scripts
-  //- script(src='/js/login.js')
+  script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js')
+  script(src='/js/register.js')

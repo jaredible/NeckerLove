@@ -12,13 +12,38 @@ const indexRouter = require('./routes/index');
 const accountRouter = require('./routes/account');
 
 // https://code.tutsplus.com/tutorials/file-upload-with-multer-in-node--cms-32088
-//mongoose.connect('mongodb+srv://matchMaker:p%40ssw0rd@neckerlove-gen0b.mongodb.net/test?retryWrites=true', {
-//  useNewUrlParser: true,
-//  useCreateIndex: true
-//});
-//mongoose.connection.once('open', function() {
-//  console.log('Connected to MongoDB!');
-//});
+mongoose.connect('mongodb+srv://matchMaker:p%40ssw0rd@neckerlove-gen0b.mongodb.net/mean?retryWrites=true', {
+  useNewUrlParser: true,
+  useCreateIndex: true
+});
+mongoose.connection.once('open', function() {
+  console.log('Connected to MongoDB!');
+
+  var Profile = require('./models/profile');
+  var rand = Math.floor(Math.random() * 1000);
+  const newProfile = new Profile({
+    email: 'test' + rand + '@mail.com',
+    password: 'testing',
+    firstname: 'John',
+    lastname: 'Doe',
+    interests: 'cubes,chess',
+    state: 'MO'
+  });
+
+  //var err = newProfile.validateSync();
+  //if (err) {
+  //  console.log(err);
+  //} else {
+  //  newProfile.save((err) => {
+  //    if (err) {
+  //      console.log(err);
+  //      return;
+  //    }
+  //
+  //    console.log('SAVED');
+  //  });
+  //}
+});
 
 const app = express();
 
@@ -36,7 +61,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(expressSession({
   key: 'user_sid',
-  secret: 'somerandomstuff',
+  secret: 'rubikscube',
   resave: false,
   saveUninitialized: false,
   cookie: {
