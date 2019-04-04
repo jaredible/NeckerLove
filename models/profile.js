@@ -3,47 +3,49 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const profileSchema = new Schema({
-  userName: {
+  email: {
     type: String,
     index: true,
     required: true,
     unique: true,
-    max: [50, 'Too long, max is 50 characters']
+    maxlength: 50
   },
   password: {
     type: String,
-    required: 'Passwod is required'
+    required: true
   },
-  firstName: {
+  firstname: {
     type: String,
-    max: [50, 'Too long, max is 50 characters']
+    maxlength: 50
   },
-  lastName: {
+  lastname: {
     type: String,
-    max: [50, 'Too long, max is 50 characters']
+    maxlength: 50
   },
-  profileImage: Buffer,
+  image: Buffer,
   interests: {
     type: String,
-    max: [2000, 'Too long, max is 2000 characters']
+    maxlength: 2000
   },
   state: {
     type: String,
-    max: [52, 'Too long, max is 52 characters']
+    maxlength: 52
   }
 }, {
   collection: 'profiles'
 });
 
-profileSchema.pre('save', (next) => {
-  const profile = null;
+profileSchema.pre('save', function(next) {
+  const profile = this;
 
   bcrypt.genSalt(10, (err, salt) => {
-    bcrypt.hash(user.password, salt, (err, hash) => {
-      user.password = hash;
+    bcrypt.hash(profile.password, salt, (err, hash) => {
+      profile.password = hash;
       next();
     });
   });
 });
 
-module.exports = mongoose.model('Profile', profileSchema);
+const Profile = mongoose.model('Profile', profileSchema);
+
+module.exports = Profile;
