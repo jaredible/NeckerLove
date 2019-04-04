@@ -31,7 +31,7 @@ var validator = $("#form-register").validate({
   messages: {
     inputEmail: {
       required: "Email is required.",
-      remote: "Email already in used."
+      remote: "Email already in use."
     },
     inputPassword: {
       required: "Password is required."

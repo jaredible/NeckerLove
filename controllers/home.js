@@ -28,7 +28,7 @@ exports.index = (req, res) => {
           {
             name: "Steven Riegerix",
             image: 'https://media.giphy.com/media/2Y8Iq3xe121Ba3hUAM/giphy.gif',
-            bio: "I want to know if this sentence wraps."
+            bio: "Does this wrap?."
           }
         ]
       });
