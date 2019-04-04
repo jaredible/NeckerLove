@@ -16,6 +16,7 @@ a.masthome {
   background-color: #fff;
   border: .05rem solid #fff;
   border-radius: 30px;
+  cursor: pointer;
 }
 
 html,
@@ -98,10 +99,6 @@ body {
   color: rgba(255, 255, 255, .5);
 }
 
-.mastfoot .fa-heart {
-  color: #FB866A;
-}
-
 .mastfoot a {
   text-decoration: none;
 }
@@ -114,8 +111,8 @@ body {
 
 .btn-primary {
   color: #fff;
-  background-color: #007b5e;
-  border-color: #007b5e;
+  background-color: #aaa;
+  border-color: #aaa;
 }
 
 .btn-primary:hover,
