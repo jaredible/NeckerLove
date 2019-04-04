@@ -1,32 +1,28 @@
 exports.login = (req, res) => {
   var email = '';
-  var emailExists = false;
+
+  console.log(req.body.inputRememberMe);
 
   if (req.method === 'POST') {
     email = req.body.inputEmail;
 
-    req.check('inputEmail', 'Invalid email address.').isEmail().isLength({
-      max: 50
-    });
-    req.check('inputPassword', 'Password is invalid.').not().isEmpty();
+    req.check('inputEmail', 'Invalid email address.').isEmail();
+    req.check('inputPassword', 'Password is invalid.').notEmpty();
 
     var errors = req.validationErrors();
-    //if (!errors) {
-    //  req.session.user = {
-    //    email: req.body.email
-    //  };
+    if (!errors) {
+      req.session.user = {
+        email: req.body.inputEmail
+      };
 
-    //  res.redirect('/');
-    //  return;
-    //}
-
-    emailExists = true;
+      res.redirect('/');
+      return;
+    }
   }
 
   res.render('login', {
     title: 'Login',
-    email: email,
-    emailExists: emailExists
+    email: email
   });
 };
 
@@ -36,14 +32,11 @@ exports.register = (req, res) => {
   if (req.method === 'POST') {
     email = req.body.inputEmail;
 
-    req.check('inputEmail', 'Invalid email address.').isEmail().isLength({
-      max: 50
-    });
-    req.check('inputPassword', 'Password is invalid.').not().isEmpty(); // ?
+    req.check('inputEmail', 'Invalid email address.').isEmail();
+    req.check('inputPassword', 'Password is invalid.').notEmpty();
 
     var errors = req.validationErrors();
     if (!errors) {
-      console.log(req.session.user);
       res.redirect('/account/login');
       return;
     }
