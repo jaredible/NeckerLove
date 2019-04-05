@@ -11,21 +11,19 @@ a.masthome {
 .btn-secondary,
 .btn-secondary:hover,
 .btn-secondary:focus {
-  color: #333;
-  text-shadow: none; /* Prevent inheritance from `body` */
+  color: #fff;
+  text-shadow: none; /* Prevent inheritance from`body` */
   background-color: #fff;
-  border: .05rem solid #fff;
+  border: none;
   border-radius: 30px;
+  background-image: linear-gradient(to bottom right, orange, pink);
 }
 
 html,
 body {
   height: 100%;
   background-color: #333;
-  background-image: url("/img/bg.jpg");
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
+  overflow: auto;
 }
 
 body {
@@ -36,13 +34,13 @@ body {
   -webkit-box-pack: center;
   justify-content: center;
   color: #fff;
+  background-image: url("/img/bg.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
   text-shadow: 0 .05rem .1rem rgba(0, 0, 0, .5);
   box-shadow: inset 0 0 20rem rgba(0, 0, 0, .5);
   cursor: default;
-}
-
-.cover-container {
-  max-width: 42em;
 }
 
 .masthead {
@@ -88,11 +86,10 @@ body {
 .cover {
   position: relative;
   padding: 0 1.5rem;
-  padding-top: 10rem;
 }
 
 .cover h1 {
-  font-size: 4rem;
+  font-size: 5rem;
 }
 
 .cover .btn-lg {
@@ -110,6 +107,6 @@ body {
 
 @media(max-width: 47em) {
   .cover h1 {
-    font-size: 2rem;
+    font-size: 3rem;
   }
 }

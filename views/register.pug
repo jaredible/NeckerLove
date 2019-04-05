@@ -5,20 +5,20 @@ block head
 
 block content
   form(id='form-register', class='form-login', action='/account/test2', method='post', novalidate)
-    a(href='/')
+    //- a(href='/')
       img(class='mb-4', width='72', height='72', src='/img/brand.png', alt='')
-    h1(class='h3 mb-3 font-weight-normal') Welcome
+    h1(class='h3 mb-3 font-weight-light text-white') Welcome
     div(class='form-group')
       input(type='email', name='inputEmail', id='inputEmail', class='form-control', placeholder='Email', value=email, required, autofocus)
     div(class='form-group')
       input(type='password', name='inputPassword', id='inputPassword', class='form-control', placeholder='Password', required)
     div(class='form-group')
       input(type='password', name='inputConfirm', id='inputConfirm', class='form-control', placeholder='Confirm Password', required)
-    button(type='submit', class='btn btn-lg btn-primary btn-block') Register
-    p(class='mt-2 mb-2')
+    button(type='submit', class='btn btn-lg btn-secondary btn-block text-white') Register
+    p(class='mt-2 mb-2 text-white')
       | Already have an account? 
-      a(href='/account/login') Log in
-    p(class='mt-4 mb-2 text-muted')
+      a(href='/account/login', class='text-primary') Log in
+    //- p(class='mt-4 mb-2 text-muted')
       | Designed with 
       i(class='fas fa-exclamation')
       | &nbsp;

@@ -3,8 +3,6 @@
 const app = require('../app');
 const debug = require('debug')('AQS:server');
 const http = require('http');
-const https = require('https');
-const fs = require('fs');
 
 const port = normalizePort(process.env.PORT || 1337);
 const host = 'localhost';

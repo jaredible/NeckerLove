@@ -8,18 +8,18 @@ html(lang='en', dir='ltr')
     div(class='cover-container d-flex h-100 p-3 mx-auto flex-column')
       header(class='masthead mb-auto')
         div(class='inner')
-          h3(class='masthead-brand')
+          h3(class='masthead-brand mb-3')
             a(href='/', class='masthome')
-              i(class='fas fa-heart')
+              i(class='fas fa-heart font-weight-light')
               |  NeckerLove
-          nav(class='nav nav-masthead justify-content-center mt-3')
+          nav(class='nav nav-masthead justify-content-center')
             a(class='nav-link active', href='/') Home
             a(class='nav-link', href='/account/profile') Profile
             form(action='/account/logout', method='post')
-              button(type='submit', class='btn btn-lg btn-secondary link-login ml-3') Log out
+              button(type='submit', class='btn btn-outline-secondary link-login ml-3') Log out
 
       main(role='main', class='inner cover')
-        form(class='')
+        form(id='form-search', class='form-search')
           div(class='btn-group btn-group-toggle mt-5 mb-1', data-toggle='buttons')
             label(class='btn btn-secondary active')
               input(type='radio', name='options', id='option1', autocomplete='off', checked)
@@ -35,16 +35,16 @@ html(lang='en', dir='ltr')
           div(class='row')
             each match in matches
               div(class='col-xs-12 col-sm-6 col-md-4 mt-3 mb-2')
-                div(class='card')
-                  div(Class='card-body text-center')
-                    p
-                      img(class='img-fluid', src=match.image, alt='')
-                    h4(class='card-title text-dark') #{match.name}
-                    p(class='card-text text-dark') #{match.bio}
-                    button(class='btn btn-primary btn-sm')
+                div(class='card rounded')
+                  div(Class='card-body text-center p-0')
+                    img(class='card-img', src=match.image, alt='')
+                    div(class='card-img-overlay')
+                      h4(class='card-text font-weight-light text-white') #{match.name}
+                    //- p(class='card-text text-dark') #{match.bio}
+                    //- button(class='btn btn-primary btn-sm')
                       i(class='fa fa-check')
     
-      footer(class='mastfoot mt-auto')
+      //- footer(class='mastfoot mt-auto')
         div(class='inner mt-3')
           p
             | Designed with 

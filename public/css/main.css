@@ -1,3 +1,7 @@
+.cover-container {
+  max-width: 50em;
+}
+
 .link-login {
   display: inline-block;
 }

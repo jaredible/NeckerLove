@@ -5,18 +5,18 @@ block head
 
 block content
   form(id='form-login', class='form-login', action='/account/login', method='post', novalidate)
-    a(href='/')
+    //- a(href='/')
       img(class='mb-4', width='72', height='72', src='/img/brand.png', alt='')
-    h1(class='h3 mb-3 font-weight-normal') Please log in
+    h1(class='h3 mb-3 font-weight-light text-white') Please log in
     div(class='form-group')
       input(type='email', name='inputEmail', id='inputEmail', class='form-control', placeholder='Email', value=email, autofocus)
     div(class='form-group')
       input(type='password', name='inputPassword', id='inputPassword', class='form-control', placeholder='Password')
-    button(type='submit', class='btn btn-lg btn-primary btn-block') Log in
-    p(class='mt-2 mb-2')
+    button(type='submit', class='btn btn-lg btn-secondary btn-block text-white') Log in
+    p(class='mt-2 mb-2 text-white')
       | Not registered? 
-      a(href='/account/register') Create an account
-    p(class='mt-4 mb-2 text-muted')
+      a(href='/account/register', class='text-primary') Create an account
+    //- p(class='mt-4 mb-2 text-muted')
       | Designed with 
       i(class='fas fa-exclamation')
       | &nbsp;

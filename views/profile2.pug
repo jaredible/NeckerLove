@@ -8,18 +8,18 @@ html(lang='en', dir='ltr')
     div(class='cover-container d-flex h-100 p-3 mx-auto flex-column', style='width: 100%;')
       header(class='masthead mb-auto')
         div(class='inner')
-          h3(class='masthead-brand')
+          h3(class='masthead-brand mb-3')
             a(href='/', class='masthome')
-              i(class='fas fa-heart')
+              i(class='fas fa-heart font-weight-light')
               |  NeckerLove
-          nav(class='nav nav-masthead justify-content-center mt-3')
+          nav(class='nav nav-masthead justify-content-center')
             a(class='nav-link', href='/') Home
             a(class='nav-link active', href='/account/profile') Profile
             form(action='/account/logout', method='post')
-              button(type='submit', class='btn btn-lg btn-secondary link-login ml-3') Log out
+              button(type='submit', class='btn btn-outline-secondary link-login ml-3') Log out
 
       main(role='main', class='inner cover')
-        form(action='/account/profile', enctype='multipart/form-data', method='post', novalidate)
+        form(id='form-profile', class='form-profile', action='/account/profile', enctype='multipart/form-data', method='post', novalidate)
           div(class='input-group mb-3 mt-1 mb-1', style='width: 100%; max-width: 330px; margin: auto;')
             input(type='file', name='image', class='form-control', accept='image/*')
           div(class='input-group mb-3 mt-1 mb-1', style='width: 100%; max-width: 330px; margin: auto;')
@@ -31,9 +31,9 @@ html(lang='en', dir='ltr')
           div(class='input-group mb-3 mt-1 mb-1', style='width: 100%; max-width: 330px; margin: auto;')
             input(type='text', name='state', class='form-control', placeholder='State')
           div(class='input-group mb-3 mt-1 mb-1', style='width: 100%; max-width: 330px; margin: auto;')
-            button(type='submit', class='btn btn-md btn-danger btn-block') Save
+            button(type='submit', class='btn btn-lg btn-secondary btn-block text-white') Save
     
-      footer(class='mastfoot mt-auto')
+      //- footer(class='mastfoot mt-auto')
         div(class='inner mt-3')
           p
             | Designed with 

@@ -4,7 +4,7 @@ $.validator.setDefaults({
 
 var validator = $("#form-register").validate({
   errorElement: "div",
-  errorClass: "invalid-response",
+  errorClass: "text-danger",
   rules: {
     inputEmail: {
       required: true,
@@ -24,7 +24,7 @@ var validator = $("#form-register").validate({
       required: true
     },
     inputConfirm: {
-      required: false,
+      required: true,
       equalTo: "#inputPassword"
     }
   },
@@ -46,7 +46,7 @@ var validator = $("#form-register").validate({
   },
   unhighlight: function(element, errorClass) {
     var ele = $(element);
-    ele.removeClass("is-invalid");
+    ele.removeClass("is-invalid").addClass('is-valid');
   },
   submitHandler: function(form) {
     console.log("in here");
