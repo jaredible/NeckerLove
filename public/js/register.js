@@ -37,7 +37,8 @@ var validator = $("#form-register").validate({
       required: "Password is required."
     },
     inputConfirm: {
-      equalTo: "Please enter your password again."
+      required: "Retype password.",
+      equalTo: "Please enter password again."
     }
   },
   highlight: function(element, errorClass) {
@@ -46,7 +47,7 @@ var validator = $("#form-register").validate({
   },
   unhighlight: function(element, errorClass) {
     var ele = $(element);
-    ele.removeClass("is-invalid");
+    ele.removeClass("is-invalid").addClass('is-valid');
   },
   errorPlacement: function(error, element) {
     error.insertBefore(element);
