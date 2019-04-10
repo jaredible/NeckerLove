@@ -5,7 +5,7 @@ block head
 
 block content
   form(id='form-register', class='form-login', action='/account/register', method='post', novalidate)
-    //- a(href='/')
+    a(href='/')
       img(class='mb-4', width='72', height='72', src='/img/brand.png', alt='')
     h1(class='h3 mb-3 font-weight-light text-white') Welcome
     div(class='form-group')
@@ -18,13 +18,6 @@ block content
     p(class='mt-2 mb-2 text-white')
       | Already have an account? 
       a(href='/account/login', class='text-primary') Log in
-    //- p(class='mt-4 mb-2 text-muted')
-      | Designed with 
-      i(class='fas fa-exclamation')
-      | &nbsp;
-      i(class='fas fa-bed')
-      |  by 
-      a(href='http://jareddiehl.me') Jared Diehl
 
 block scripts
   script(src='https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js')

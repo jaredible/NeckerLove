@@ -70,14 +70,14 @@ if (app.get('env') === 'development') {
       error: err
     });
   });
-}
-
-app.use((err, req, res, next) => {
-  res.status(err.status || 500);
-  res.render('error', {
-    message: err.message,
-    error: {}
+} else {
+  app.use((err, req, res, next) => {
+    res.status(err.status || 500);
+    res.render('error', {
+      message: err.message,
+      error: {}
+    });
   });
-});
+}
 
 module.exports = app;

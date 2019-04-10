@@ -20,10 +20,10 @@ html(lang='en', dir='ltr')
       main(role='main', class='inner cover')
         form(id='form-search', class='form-search', style='width: 100%; max-width: 330px; margin: auto;')
           div(class='btn-group btn-group-toggle pt-5 pb-1', data-toggle='buttons')
-            label(class='btn btn-secondary active')
+            label(class='btn btn-primary active')
               input(type='radio', name='options', id='option1', autocomplete='off', checked)
               |  Interests
-            label(class='btn btn-secondary')
+            label(class='btn btn-primary')
               input(type='radio', name='options', id='option2', autocomplete='off')
               |  State
           div(class='input-group mb-3 mt-1 mb-5')
@@ -35,22 +35,22 @@ html(lang='en', dir='ltr')
             each match in matches
               div(class='col-xs-12 col-sm-6 col-md-4 mt-3 mb-2')
                 div(class='card rounded')
-                  div(Class='card-body text-center p-0')
-                    img(class='card-img', src=match.image, alt='')
-                    div(class='card-img-overlay h-100 d-flex flex-column justify-content-end p-1')
-                      h4(class='card-text font-weight-light text-white') #{match.name}
-                    //- p(class='card-text text-dark') #{match.bio}
-                    //- button(class='btn btn-primary btn-sm')
-                      i(class='fa fa-check')
+                  div(Class='card-body shadow-lg text-center p-1 bg-light rounded')
+                    img(class='card-img shadow-sm', src=match.image, alt='')
+                    h4(class='card-text font-weight-bold text-dark p-1') #{match.name}
+                    p(class='card-text font-weight-normal text-dark') Cubes, Chess, Juggling
+                    p(class='card-footer font-weight-light') St. Louis MO, USA
+                    button(class='btn btn-warning btn-sm shadow-sm font-weight-normal ml-1 mr-1')
+                      i(class='far fa-thumbs-up')
+                      |  Interested
+                    button(class='btn btn-danger btn-sm shadow-sm font-weight-normal ml-1 mr-1')
+                      i(class='far fa-heart')
+                      |  Love
     
-      //- footer(class='mastfoot mt-auto')
+      footer(class='mastfoot mt-auto')
         div(class='inner mt-3')
           p
-            | Designed with 
-            i(class='fas fa-exclamation')
-            | &nbsp;
-            i(class='fas fa-bed')
-            |  by 
+            | Designed with no sleep by 
             a(href='http://jareddiehl.me') Jared Diehl
 
     include partials/scripts.pug

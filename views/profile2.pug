@@ -21,7 +21,7 @@ html(lang='en', dir='ltr')
       main(role='main', class='inner cover')
         form(id='form-profile', class='form-profile', action='/account/imageupload', enctype='multipart/form-data', method='post', novalidate, style='width: 100%; max-width: 330px; margin: auto;')
           div(class='form-group mt-5 mb-3')
-            div(class='')
+            div(class='round p-1')
               input(type='file', name='inputImage', id='inputImage', class='', accept='image/*')
             div(class='text-white')
               small Select file &lt; 1 MB
@@ -40,16 +40,12 @@ html(lang='en', dir='ltr')
                     option(value=state.abbreviation, selected) #{state.name}
                   else
                     option(value=state.abbreviation) #{state.name}
-          button(type='submit', class='btn btn-lg btn-secondary btn-block text-white') Save
+          button(type='submit', class='btn btn-lg btn-primary btn-block text-white') Save
     
-      //- footer(class='mastfoot mt-auto')
+      footer(class='mastfoot mt-auto')
         div(class='inner mt-3')
           p
-            | Designed with 
-            i(class='fas fa-exclamation')
-            | &nbsp;
-            i(class='fas fa-bed')
-            |  by 
+            | Designed with no sleep by 
             a(href='http://jareddiehl.me') Jared Diehl
 
     include partials/scripts.pug

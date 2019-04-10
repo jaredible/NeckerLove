@@ -1,5 +1,5 @@
 var imageURL = 'https://t4.ftcdn.net/jpg/02/15/84/43/240_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg';
-imageURL = '/account/image';
+//imageURL = '/account/image';
 
 $("#inputImage").fileinput({
   overwriteInitial: true,
@@ -7,7 +7,7 @@ $("#inputImage").fileinput({
   showCaption: false,
   maxFileSize: 1024,
   browseIcon: '<i class="fas fa-folder-open"></i>',
-  browseClass: ' btn btn-secondary',
+  browseClass: ' btn btn-primary',
   removeIcon: '<i class="fas fa-times"></i>',
   previewZoomButtonIcons: {
     toggleheader: '<i class="fas fa-arrows-alt-v"></i>',

@@ -113,6 +113,16 @@ exports.profile = (req, res) => {
 
   console.log(req.session.user);
 
+  res.render('profile2', {
+    title: 'Profile2',
+    states: USAStates,
+    firstName: 'TEST',
+    lastName: 'TEST',
+    interests: 'TEST',
+    stateCode: 'TEST'
+  });
+  return;
+
   Profile.Model.findOne({
     'email': req.session.user.email
   }, (err, profile) => {
