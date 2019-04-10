@@ -1,12 +1,12 @@
 doctype html
 html(lang='en', dir='ltr')
   head
-    link(rel='stylesheet' href='https://use.fontawesome.com/releases/v5.7.1/css/all.css' integrity='sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr' crossorigin='anonymous')
     include partials/head.pug
+    link(rel='stylesheet', href='https://cdn.jsdelivr.net/npm/bootstrap-fileinput@5.0.1/css/fileinput.min.css')
     link(rel='stylesheet', href='/css/profile.css')
   body(class='text-center')
     div(class='cover-container d-flex h-100 p-3 mx-auto flex-column', style='width: 100%;')
-      header(class='masthead mb-auto')
+      header(class='masthead')
         div(class='inner')
           h3(class='masthead-brand mb-3')
             a(href='/', class='masthome')
@@ -19,19 +19,28 @@ html(lang='en', dir='ltr')
               button(type='submit', class='btn btn-outline-secondary link-login ml-3') Log out
 
       main(role='main', class='inner cover')
-        form(id='form-profile', class='form-profile', action='/account/profile', enctype='multipart/form-data', method='post', novalidate)
-          div(class='input-group mb-3 mt-1 mb-1', style='width: 100%; max-width: 330px; margin: auto;')
-            input(type='file', name='image', class='form-control', accept='image/*')
-          div(class='input-group mb-3 mt-1 mb-1', style='width: 100%; max-width: 330px; margin: auto;')
-            input(type='text', name='firstname', class='form-control', placeholder='First name', autofocus)
-          div(class='input-group mb-3 mt-1 mb-1', style='width: 100%; max-width: 330px; margin: auto;')
-            input(type='text', name='lastname', class='form-control', placeholder='Last name')
-          div(class='input-group mb-3 mt-1 mb-1', style='width: 100%; max-width: 330px; margin: auto;')
-            input(type='text', name='interests', class='form-control', placeholder='Interests')
-          div(class='input-group mb-3 mt-1 mb-1', style='width: 100%; max-width: 330px; margin: auto;')
-            input(type='text', name='state', class='form-control', placeholder='State')
-          div(class='input-group mb-3 mt-1 mb-1', style='width: 100%; max-width: 330px; margin: auto;')
-            button(type='submit', class='btn btn-lg btn-secondary btn-block text-white') Save
+        form(id='form-profile', class='form-profile', action='/account/imageupload', enctype='multipart/form-data', method='post', novalidate, style='width: 100%; max-width: 330px; margin: auto;')
+          div(class='form-group mt-5 mb-3')
+            div(class='')
+              input(type='file', name='inputImage', id='inputImage', class='', accept='image/*')
+            div(class='text-white')
+              small Select file &lt; 1 MB
+          div(class='form-group')
+            input(type='text', name='inputFirstName', id='inputFirstName', class='form-control', value=firstName, placeholder='First name')
+          div(class='form-group')
+            input(type='text', name='inputLastName', id='inputLastName', class='form-control', value=lastName, placeholder='Last name')
+          div(class='form-group')
+            input(type='text', name='inputInterests', id='inputInterests', class='form-control', value=interests, placeholder='Interests')
+          div(class='form-group')
+            select(name='inputState', id='inputState', class='custom-select')
+              option(value='') --- Select one ---
+              if states
+                each state in states
+                  if state.abbreviation === stateCode
+                    option(value=state.abbreviation, selected) #{state.name}
+                  else
+                    option(value=state.abbreviation) #{state.name}
+          button(type='submit', class='btn btn-lg btn-secondary btn-block text-white') Save
     
       //- footer(class='mastfoot mt-auto')
         div(class='inner mt-3')
@@ -44,4 +53,8 @@ html(lang='en', dir='ltr')
             a(href='http://jareddiehl.me') Jared Diehl
 
     include partials/scripts.pug
-    //- script(src='/js/profile.js')
+    script(src='https://cdn.jsdelivr.net/npm/bootstrap-fileinput@5.0.1/js/plugins/piexif.min.js')
+    script(src='https://cdn.jsdelivr.net/npm/bootstrap-fileinput@5.0.1/js/plugins/sortable.min.js')
+    script(src='https://cdn.jsdelivr.net/npm/bootstrap-fileinput@5.0.1/js/plugins/purify.min.js')
+    script(src='https://cdn.jsdelivr.net/npm/bootstrap-fileinput@5.0.1/js/fileinput.min.js')
+    script(src='/js/profile.js')

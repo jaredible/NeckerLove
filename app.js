@@ -18,31 +18,6 @@ mongoose.connect('mongodb+srv://matchMaker:p%40ssw0rd@neckerlove-gen0b.mongodb.n
 });
 mongoose.connection.once('open', function() {
   console.log('Connected to MongoDB!');
-
-  var Profile = require('./models/profile');
-  var rand = Math.floor(Math.random() * 1000);
-  const newProfile = new Profile({
-    email: 'test' + rand + '@mail.com',
-    password: 'testing',
-    firstname: 'John',
-    lastname: 'Doe',
-    interests: 'cubes,chess',
-    state: 'MO'
-  });
-
-  //var err = newProfile.validateSync();
-  //if (err) {
-  //  console.log(err);
-  //} else {
-  //  newProfile.save((err) => {
-  //    if (err) {
-  //      console.log(err);
-  //      return;
-  //    }
-  //
-  //    console.log('SAVED');
-  //  });
-  //}
 });
 
 const app = express();
@@ -63,9 +38,11 @@ app.use(expressSession({
   key: 'user_sid',
   secret: 'rubikscube',
   resave: false,
-  saveUninitialized: false,
+  saveUninitialized: true,
+  rolling: true,
   cookie: {
-    expires: 10 * 60 * 1000 // 10 * 60 * 1 second = 10 minutes
+    maxAge: 10 * 60 * 1000, // 10 * 60 * 1 second = 10 minutes
+    secure: false // TODO
   }
 }));
 
@@ -78,31 +55,6 @@ app.use((req, res, next) => {
 
 app.use('/', indexRouter);
 app.use('/account', accountRouter);
-
-// Testing
-const multer = require('multer');
-var storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads');
-  },
-  filename: (req, file, cb) => {
-    cb(null, file.fieldname + '-' + Date.now());
-  }
-});
-var upload = multer({
-  storage: storage
-});
-
-app.post('/imageupload', upload.single('image'), (req, res) => {
-  console.log(req.body);
-  const file = req.file;
-  if (!file) {
-    const error = new Error('Please upload a file');
-    error.httpStatusCode = 400;
-    return next(error);
-  }
-  res.redirect('/');
-});
 
 app.use((req, res, next) => {
   var err = new Error('Not Found');

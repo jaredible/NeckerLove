@@ -11,7 +11,7 @@ var validator = $("#form-register").validate({
       maxlength: 50,
       email: true,
       remote: {
-        url: "test",
+        url: "findProfileByEmail",
         type: "post",
         data: {
           email: function() {
@@ -46,10 +46,12 @@ var validator = $("#form-register").validate({
   },
   unhighlight: function(element, errorClass) {
     var ele = $(element);
-    ele.removeClass("is-invalid").addClass('is-valid');
+    ele.removeClass("is-invalid");
+  },
+  errorPlacement: function(error, element) {
+    error.insertBefore(element);
   },
   submitHandler: function(form) {
-    console.log("in here");
     form.submit();
   }
 });

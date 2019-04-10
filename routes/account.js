@@ -1,52 +1,49 @@
 const express = require('express');
 const router = express.Router();
+const {
+  check
+} = require('express-validator/check');
 
+const auth = require('../middlewares/auth');
 const accountController = require('../controllers/account');
+const loginController = require('../controllers/login');
+const registerController = require('../controllers/register');
 
-const redirectHome = (req, res, next) => {
-  if (req.session.user && req.cookies.user_sid) {
-    res.redirect('/');
-  } else {
-    next();
-  }
-};
+router.get('/login', auth.redirectHome, loginController.get);
 
-const redirectLogin = (req, res, next) => {
-  if (!(req.session.user && req.cookies.user_sid)) {
-    res.redirect('/account/login');
-  } else {
-    next();
-  }
-};
+router.post('/login', auth.redirectHome, loginController.post);
 
-router.all('/login', redirectHome, accountController.login);
-router.all('/register', redirectHome, accountController.register);
-router.all('/profile', redirectLogin, accountController.profile);
+router.post('/auth', auth.redirectHome, loginController.auth);
+
+router.get('/register', auth.redirectHome, registerController.get);
+
+router.post('/register', auth.redirectHome, [
+  check('inputEmail', 'Invalid registration email.').isEmail().normalizeEmail().custom(value => {
+    return registerController.Profile.findProfileByEmail(value).then(profile => {
+      if (profile) {
+        return Promise.reject('Email already in use.');
+      }
+    });
+  }),
+  check('inputPassword', 'Invalid registration password.').not().isEmpty().trim().escape(),
+  check('inputConfirm').custom((value, {
+    req
+  }) => {
+    if (value !== req.body.inputPassword) {
+      throw new Error('Password confirmation is incorrect.');
+    } else {
+      return true;
+    }
+  })
+], registerController.post);
+
+router.post('/findProfileByEmail', auth.redirectHome, check('inputEmail', 'Invalid email.').isEmail().normalizeEmail(), registerController.findProfileByEmail);
+
+router.all('/profile', auth.redirectLogin, accountController.profile);
 router.post('/logout', accountController.logout);
 
-var Profile = require('../models/profile');
+router.post('/imageupload', accountController.imageupload);
 
-router.post('/test', (req, res) => {
-  Profile.findOne({
-    'email': req.body.inputEmail
-  }, (err, email) => {
-    if (email) {
-      // email exists
-      console.log('email exists');
-      //res.json("Email already exists.");
-      res.send(false);
-    } else {
-      // email does not exist
-      console.log('email does not exists');
-      res.send(true);
-    }
-  });
-});
-
-router.post('/test2', (req, res) => {
-  // save user info to new profile
-  console.log(req.body);
-  res.redirect('/account/login');
-});
+router.get('/image', accountController.image);
 
 module.exports = router;

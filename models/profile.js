@@ -46,6 +46,66 @@ profileSchema.pre('save', function(next) {
   });
 });
 
-const Profile = mongoose.model('Profile', profileSchema);
+exports.comparePasswords = (password, hashedPassword, callback) => {
+  bcrypt.compare(password, hashedPassword, function(err, res) {
+    if (err) {
+      throw err;
+    }
 
-module.exports = Profile;
+    callback(res);
+  });
+};
+
+const Model = mongoose.model('Profile', profileSchema);
+
+exports.createProfile = (email, password) => {
+  const profile = new Model({
+    email: email,
+    password: password,
+  });
+
+  var err = profile.validateSync();
+  if (err) {
+    console.error(err);
+    return false;
+  } else {
+    profile.save((err) => {
+      if (err) {
+        console.error(err);
+        return false;
+      }
+    });
+  }
+
+  return true;
+};
+
+exports.findProfileByEmail = (email) => {
+  return new Promise(function(resolve) {
+    Model.findOne({
+      'email': email
+    }, (err, profile) => {
+      if (err) {
+        throw err;
+      }
+
+      resolve(profile);
+    });
+  });
+};
+
+exports.getProfileImageByEmail = (email) => {
+  return new Promise(function(resolve) {
+    Model.findOne({
+      'email': email
+    }, (err, profile) => {
+      if (err) {
+        throw err;
+      }
+
+      resolve(profile.image);
+    });
+  });
+};
+
+exports.Model = Model;

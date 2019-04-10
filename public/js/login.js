@@ -29,14 +29,33 @@ var validator = $("#form-login").validate({
   },
   unhighlight: function(element, errorClass) {
     var ele = $(element);
-    ele.removeClass("is-invalid").addClass('is-valid');
+    ele.removeClass("is-invalid");
+  },
+  errorPlacement: function(error, element) {
+    error.insertBefore(element);
   },
   submitHandler: function(form) {
-    console.log("in here");
-    form.submit();
+    $.ajax({
+      type: form.method,
+      url: "/account/auth",
+      data: $(form).serialize(),
+      success: function(data) {
+        if (data) {
+          form.submit();
+        } else {
+          validator.showErrors({
+            "inputEmail": "The username or password is incorrect.",
+            "inputPassword": ""
+          });
+        }
+      },
+      error: function(data) {
+        console.error(data);
+      }
+    });
   }
 });
 
 $(function() {
-  validator.form();
+  //validator.form();
 });
