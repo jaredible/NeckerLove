@@ -13,7 +13,7 @@ router.get('/login', auth.redirectHome, loginController.get);
 
 router.post('/login', auth.redirectHome, loginController.post);
 
-router.post('/auth', auth.redirectHome, loginController.auth);
+router.post('/auth', auth.redirectHome, loginController.authenticate);
 
 router.get('/register', auth.redirectHome, registerController.get);
 

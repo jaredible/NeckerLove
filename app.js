@@ -11,16 +11,27 @@ const expressSession = require('express-session');
 const indexRouter = require('./routes/index');
 const accountRouter = require('./routes/account');
 
+const app = express();
+
 // https://code.tutsplus.com/tutorials/file-upload-with-multer-in-node--cms-32088
-mongoose.connect('mongodb+srv://matchMaker:p%40ssw0rd@neckerlove-gen0b.mongodb.net/mean?retryWrites=true', {
-  useNewUrlParser: true,
-  useCreateIndex: true
-});
+if (app.get('env') === 'production') {
+  mongoose.connect('mongodb+srv://matchMaker:p%40ssw0rd@neckerlove-gen0b.mongodb.net/mean?retryWrites=true', {
+    useNewUrlParser: true,
+    useCreateIndex: true
+  });
+} else {
+  mongoose.connect('mongodb://localhost:27017/mean?retryWrites=true', {
+    auth: {
+      user: 'matchMaker',
+      password: 'p@ssw0rd'
+    },
+    useNewUrlParser: true,
+    useCreateIndex: true
+  });
+}
 mongoose.connection.once('open', function() {
   console.log('Connected to MongoDB!');
 });
-
-const app = express();
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));

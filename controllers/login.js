@@ -8,27 +8,72 @@ exports.get = (req, res) => {
   req.session.email = null;
 };
 
+const bcrypt = require('bcryptjs');
+
 exports.post = (req, res) => {
   var errors = req.validationErrors();
   if (!errors) {
     var email = req.body.inputEmail;
     var password = req.body.inputPassword;
 
-    req.session.user = { // TODO: req not defined in this scope
-      email: email,
-      password: password
-    };
+    Profile.Model.findOne({
+      'email': email
+    }, (err, profile) => {
+      if (err) {
+        throw err;
+      }
 
-    res.redirect('/');
-    return;
+      if (profile) {
+        bcrypt.compare(password, profile.password, (err, result) => {
+          if (err) {
+            throw err;
+          }
+
+          if (result) {
+            req.session.user = {
+              email: email,
+              password: password
+            };
+            res.redirect('/');
+          } else {
+            req.session.email = req.body.inputEmail;
+            res.redirect('/account/login');
+          }
+        });
+      } else {
+        req.session.email = req.body.inputEmail;
+        res.redirect('/account/login');
+      }
+    });
   }
-
-  req.session.email = req.body.inputEmail;
-  res.redirect('/account/login');
 };
 
-exports.auth = (req, res) => {
-  // log attempts
-  var userAuthenticated = true;
-  res.send(userAuthenticated);
+exports.authenticate = (req, res) => {
+  var email = req.body.inputEmail;
+  var password = req.body.inputPassword;
+  
+  // TODO: attempts
+  Profile.Model.findOne({
+    'email': email
+  }, (err, profile) => {
+    if (err) {
+      throw err;
+    }
+
+    if (profile) {
+      bcrypt.compare(password, profile.password, (err, result) => {
+        if (err) {
+          throw err;
+        }
+
+        if (result) {
+          res.send(true);
+        } else {
+          res.send(false);
+        }
+      });
+    } else {
+      res.send(false);
+    }
+  });
 };

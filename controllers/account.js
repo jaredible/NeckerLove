@@ -50,9 +50,9 @@ exports.imageupload = (req, res) => {
       Profile.Model.findOneAndUpdate({
         'email': req.session.user.email
       }, {
-        firstname: req.body.inputFirstName,
-        lastname: req.body.inputLastName,
-        image: fs.readFileSync(req.file.path),
+        firstName: req.body.inputFirstName,
+        lastName: req.body.inputLastName,
+        profileImage: fs.readFileSync(req.file.path),
         interests: req.body.inputInterests,
         state: req.body.inputState
       }, {
@@ -70,8 +70,8 @@ exports.imageupload = (req, res) => {
       Profile.Model.findOneAndUpdate({
         'email': req.session.user.email
       }, {
-        firstname: req.body.inputFirstName,
-        lastname: req.body.inputLastName,
+        firstName: req.body.inputFirstName,
+        lastName: req.body.inputLastName,
         interests: req.body.inputInterests,
         state: req.body.inputState
       }, {
@@ -101,7 +101,7 @@ exports.imageupload = (req, res) => {
     //  });
     //}
 
-    //await unlinkAsync(req.file.path);
+    await unlinkAsync(req.file.path);
   });
 };
 
@@ -149,7 +149,7 @@ exports.image = (req, res) => {
       throw err;
     }
 
-    res.send(profile.image);
+    res.send(profile.profileImage);
   });
 };
 

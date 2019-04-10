@@ -2,6 +2,7 @@ const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+// TODO
 const profileSchema = new Schema({
   email: {
     type: String,
@@ -10,24 +11,24 @@ const profileSchema = new Schema({
     unique: true,
     maxlength: 50
   },
-  password: {
+  password: { // TODO
     type: String,
     required: true
   },
-  firstname: {
+  firstName: { // TODO
     type: String,
     maxlength: 50
   },
-  lastname: {
+  lastName: { // TODO
     type: String,
     maxlength: 50
   },
-  image: Buffer,
+  profileImage: Buffer, // TODO
   interests: {
     type: String,
     maxlength: 2000
   },
-  state: {
+  state: { // TODO
     type: String,
     maxlength: 52
   }
@@ -46,13 +47,25 @@ profileSchema.pre('save', function(next) {
   });
 });
 
-exports.comparePasswords = (password, hashedPassword, callback) => {
-  bcrypt.compare(password, hashedPassword, function(err, res) {
-    if (err) {
-      throw err;
-    }
+exports.authenticate = (email, password, hashedPassword) => {
+  return new Promise(function(resolve) {
+    Model.findOne({
+      'email': email
+    }, (err, profile) => {
+      if (err) {
+        throw err;
+      }
 
-    callback(res);
+      bcrypt.compare(password, hashedPassword, function(err, res) {
+        if (err) {
+          throw err;
+        }
+
+        callback(res);
+      });
+
+      resolve(profile);
+    });
   });
 };
 
