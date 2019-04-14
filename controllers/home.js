@@ -1,77 +1,48 @@
-exports.index = (req, res) => {
-  console.log(req.session.user);
-  console.log(req.cookies.user_sid);
+const configHelper = require('../helpers/config');
+const stringHelper = require('../helpers/string');
 
+var Profile = require('../models/profile');
+
+exports.get = (req, res) => {
   if (req.session.user && req.cookies.user_sid) {
-    res.render('search2', {
-      title: 'Search2',
-      matches: [
-        {
-          name: 'Jared Diehl',
-          image: 'https://media.giphy.com/media/2Y8Iq3xe121Ba3hUAM/giphy.gif',
-          bio: 'I love Rubik\'s Cubes!'
-        },
-        {
-          name: 'John Doe',
-          image: 'https://static.spin.com/files/2019/03/GettyImages-1130598318-1554059636-640x401.jpg',
-          bio: 'some text'
-        },
-        {
-          name: 'Elon Musk',
-          image: 'https://i.redd.it/us1zz2mnv9m21.gif',
-          bio: 'idk'
-        },
-        {
-          name: 'This is a really long name.',
-          image: 'http://wowslider.com/sliders/demo-81/data1/images/redkite50498.jpg',
-          bio: 'testing'
-        },
-        {
-          name: 'Steven Riegerix',
-          image: 'https://media.giphy.com/media/2Y8Iq3xe121Ba3hUAM/giphy.gif',
-          bio: 'I want to know if this sentence wraps.'
-        },
-        {
-          name: 'Testing',
-          image: 'https://pmcvariety.files.wordpress.com/2018/09/fortnite-s6.jpg?w=1000&h=563&crop=1',
-          bio: 'nothing'
-        },
-        {
-          name: 'Jared Diehl',
-          image: 'https://media.giphy.com/media/2Y8Iq3xe121Ba3hUAM/giphy.gif',
-          bio: 'I love Rubik\'s Cubes!'
-        },
-        {
-          name: 'John Doe',
-          image: 'https://static.spin.com/files/2019/03/GettyImages-1130598318-1554059636-640x401.jpg',
-          bio: 'some text'
-        },
-        {
-          name: 'Elon Musk',
-          image: 'https://i.redd.it/us1zz2mnv9m21.gif',
-          bio: 'idk'
-        },
-        {
-          name: 'This is a really long name.',
-          image: 'http://wowslider.com/sliders/demo-81/data1/images/redkite50498.jpg',
-          bio: 'testing'
-        },
-        {
-          name: 'Steven Riegerix',
-          image: 'https://media.giphy.com/media/2Y8Iq3xe121Ba3hUAM/giphy.gif',
-          bio: 'I want to know if this sentence wraps.'
-        },
-        {
-          name: 'Testing',
-          image: 'https://pmcvariety.files.wordpress.com/2018/09/fortnite-s6.jpg?w=1000&h=563&crop=1',
-          bio: 'nothing'
-        }
-      ]
+    res.render('search', {
+      title: 'Search',
     });
-    return;
+  } else {
+    res.render('index', {
+      title: 'Home'
+    });
+  }
+};
+
+exports.post = (req, res) => {
+  var query = {
+    userName: {
+      $ne: req.session.user.email
+    }
+  };
+
+  var regex = new RegExp(req.body.searchQuery.replace(/\s*,\s*/g, '|'), 'gi');
+  if (req.body.option.toLowerCase() === 'interests') {
+    query.interests = regex;
+  } else if (req.body.option.toLowerCase() === 'state') {
+    query.state = regex;
   }
 
-  res.render('index2', {
-    title: 'Home2'
+  Profile.findProfilesByQuery(query, {
+    _id: 0,
+    password: 0,
+    profileImage: 0,
+    __v: 0
+  }).then((profiles) => {
+    if (profiles) {
+      profiles.forEach((profile) => {
+        profile.firstName = stringHelper.toTitleCase(profile.firstName);
+        profile.lastName = stringHelper.toTitleCase(profile.lastName);
+        profile.interests = stringHelper.toTitleCase(profile.interests.replace(/\s*,\s*/g, ', '));
+        profile.state = stringHelper.toTitleCase(configHelper.getStateNameByCode(profile.state))
+      });
+      res.json(profiles);
+    }
   });
 };

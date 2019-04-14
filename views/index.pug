@@ -1,19 +1,14 @@
 doctype html
 html(lang='en', dir='ltr')
-  include partials/head.pug
-  body
-    header(class='home-header')
-      h2(class='home-logo')
-        a(href='/')
-          i(class='fas fa-heart')
-          |  NeckerLove
-
-    div(class='content')
-      div(class='test')
-        h1(id='home-title') Single is a terrible thing to waste.
-
-    footer(class='footer')
-      include partials/footer.pug
+  head
+    include partials/head.pug
+    link(rel='stylesheet', href='/css/home.css')
+  body(class='text-center')
+    div(class='cover-container d-flex h-100 p-3 mx-auto flex-column')
+      main(role='main', class='inner cover')
+        h1(class='cover-heading', style='display: block; display: none;') Single is a terrible thing to waste.
+        p(class='lead', style='display: block; display: none;')
+          a(href='/account/register', class='btn btn-lg btn-secondary pl-5 pr-5') Get Started
 
     include partials/scripts.pug
     script(src='/js/home.js')

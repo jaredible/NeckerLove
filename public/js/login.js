@@ -37,12 +37,11 @@ var validator = $("#form-login").validate({
   submitHandler: function(form) {
     $.ajax({
       type: form.method,
-      url: "/account/auth",
+      url: "/account/authenticate",
       data: $(form).serialize(),
       success: function(data) {
-        if (data) {
-          form.submit();
-        } else {
+        if (data) form.submit();
+        else {
           validator.showErrors({
             "inputEmail": "The username or password is incorrect.",
             "inputPassword": ""
@@ -54,8 +53,4 @@ var validator = $("#form-login").validate({
       }
     });
   }
-});
-
-$(function() {
-  //validator.form();
 });

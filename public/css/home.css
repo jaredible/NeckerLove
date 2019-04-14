@@ -38,7 +38,7 @@ body {
   -webkit-box-pack: center;
   justify-content: center;
   color: #fff;
-  background-image: url("/img/bg.jpg");
+  background-image: url("/img/homeBackground.jpg");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
@@ -90,6 +90,7 @@ body {
 .cover {
   position: relative;
   padding: 0 1.5rem;
+  margin: auto;
 }
 
 .cover h1 {

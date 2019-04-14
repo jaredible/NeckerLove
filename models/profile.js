@@ -2,33 +2,32 @@ const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// TODO
 const profileSchema = new Schema({
-  email: {
+  userName: {
     type: String,
     index: true,
     required: true,
     unique: true,
     maxlength: 50
   },
-  password: { // TODO
+  password: {
     type: String,
     required: true
   },
-  firstName: { // TODO
+  firstName: {
     type: String,
     maxlength: 50
   },
-  lastName: { // TODO
+  lastName: {
     type: String,
     maxlength: 50
   },
-  profileImage: Buffer, // TODO
+  profileImage: Buffer,
   interests: {
     type: String,
     maxlength: 2000
   },
-  state: { // TODO
+  state: {
     type: String,
     maxlength: 52
   }
@@ -38,70 +37,65 @@ const profileSchema = new Schema({
 
 profileSchema.pre('save', function(next) {
   const profile = this;
-
   bcrypt.genSalt(10, (err, salt) => {
+    if (err) throw err;
     bcrypt.hash(profile.password, salt, (err, hash) => {
+      if (err) throw err;
       profile.password = hash;
       next();
     });
   });
 });
 
-exports.authenticate = (email, password, hashedPassword) => {
+const Model = mongoose.model('Profile', profileSchema);
+
+exports.createNewProfile = (email, password) => {
   return new Promise(function(resolve) {
-    Model.findOne({
-      'email': email
-    }, (err, profile) => {
-      if (err) {
-        throw err;
-      }
-
-      bcrypt.compare(password, hashedPassword, function(err, res) {
-        if (err) {
-          throw err;
-        }
-
-        callback(res);
-      });
-
-      resolve(profile);
+    var newProfile = new Model({
+      userName: email,
+      password: password,
     });
+
+    if (newProfile.validateSync()) throw err;
+    else {
+      newProfile.save((err) => {
+        if (err) throw err;
+      });
+    }
+
+    resolve(newProfile);
   });
 };
 
-const Model = mongoose.model('Profile', profileSchema);
-
-exports.createProfile = (email, password) => {
-  const profile = new Model({
-    email: email,
-    password: password,
-  });
-
-  var err = profile.validateSync();
-  if (err) {
-    console.error(err);
-    return false;
-  } else {
-    profile.save((err) => {
-      if (err) {
-        console.error(err);
-        return false;
-      }
+exports.authenticate = (password, hashedPassword) => {
+  return new Promise(function(resolve) {
+    bcrypt.compare(password, hashedPassword, (err, result) => {
+      if (err) throw err;
+      resolve(result);
     });
-  }
-
-  return true;
+  });
 };
 
 exports.findProfileByEmail = (email) => {
   return new Promise(function(resolve) {
     Model.findOne({
-      'email': email
+      'userName': email
     }, (err, profile) => {
-      if (err) {
-        throw err;
-      }
+      if (err) throw err;
+      resolve(profile);
+    });
+  });
+};
 
+exports.findProfileByEmailAndUpdate = (email, update) => {
+  return new Promise(function(resolve) {
+    Model.findOneAndUpdate({
+      'userName': email
+    }, update, {
+      runValidators: true,
+      useFindAndModify: false
+    }, (err, profile) => {
+      if (err) throw err;
       resolve(profile);
     });
   });
@@ -110,15 +104,24 @@ exports.findProfileByEmail = (email) => {
 exports.getProfileImageByEmail = (email) => {
   return new Promise(function(resolve) {
     Model.findOne({
-      'email': email
+      'userName': email
     }, (err, profile) => {
-      if (err) {
-        throw err;
-      }
-
+      if (err) throw err;
       resolve(profile.image);
     });
   });
 };
 
-exports.Model = Model;
+exports.findProfilesByQuery = (query, projections) => {
+  return new Promise(function(resolve) {
+    Model.find(query, projections, {
+      sort: {
+        firstName: 1,
+        lastName: 1
+      }
+    }, (err, profiles) => {
+      if (err) throw err;
+      resolve(profiles);
+    });
+  });
+};

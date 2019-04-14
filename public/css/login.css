@@ -46,7 +46,7 @@ a {
 }
 
 .form-login input::placeholder {
-  color: white;
+  color: #999;
 }
 
 .form-login input[type='email'] {

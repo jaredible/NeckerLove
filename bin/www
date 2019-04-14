@@ -1,8 +1,9 @@
 #!/usr/bin/env node
 
 const app = require('../app');
-const debug = require('debug')('AQS:server');
+const debug = require('debug')('http');
 const http = require('http');
+const colors = require('colors');
 
 const port = normalizePort(process.env.PORT || 1337);
 const host = 'localhost';
@@ -11,7 +12,9 @@ const env = app.get('env');
 const server = http.createServer(app);
 
 server.listen(port, host, () => {
-  console.log(`${env.charAt(0).toUpperCase() + env.substring(1)} app listening at http://${server.address().address}:${server.address().port}`);
+  if (!process.env.DEBUG) {
+    console.log(`${env.charAt(0).toUpperCase() + env.substring(1)} app listening at http://${server.address().address}:${server.address().port}`.green);
+  }
 });
 server.on('error', onError);
 server.on('listening', onListening);

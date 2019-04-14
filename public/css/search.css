@@ -8,30 +8,6 @@ a.masthome {
   text-decoration: none;
 }
 
-/*
-.btn-secondary,
-.btn-secondary:hover,
-.btn-secondary:focus {
-  color: #aaa;
-  text-shadow: none;
-  background-color: #222;
-  border: .05rem solid #222;
-  cursor: pointer;
-}
-*/
-
-/*
-#text-search,
-#text-search:hover,
-#text-search:active {
-  border-color: white;
-}
-
-#text-search:focus {
-  box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
-}
-*/
-
 html,
 body {
   height: 100%;

@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const expressValidator = require('express-validator');
 const expressSession = require('express-session');
+const colors = require('colors');
 
 const indexRouter = require('./routes/index');
 const accountRouter = require('./routes/account');
@@ -30,7 +31,7 @@ if (app.get('env') === 'production') {
   });
 }
 mongoose.connection.once('open', function() {
-  console.log('Connected to MongoDB!');
+  console.log('Connected to MongoDB!'.green);
 });
 
 app.set('view engine', 'pug');
@@ -67,6 +68,10 @@ app.use((req, res, next) => {
 app.use('/', indexRouter);
 app.use('/account', accountRouter);
 
+app.post('/test', (req, res) => {
+  res.send(200);
+});
+
 app.use((req, res, next) => {
   var err = new Error('Not Found');
   err.status = 404;
@@ -77,6 +82,7 @@ if (app.get('env') === 'development') {
   app.use((err, req, res, next) => {
     res.status(err.status || 500);
     res.render('error', {
+      title: 'Error',
       message: err.message,
       error: err
     });
@@ -85,6 +91,7 @@ if (app.get('env') === 'development') {
   app.use((err, req, res, next) => {
     res.status(err.status || 500);
     res.render('error', {
+      title: 'Error',
       message: err.message,
       error: {}
     });
