@@ -1,4 +1,4 @@
-extends layouts/test.pug
+extends layouts/validate.pug
 
 block head
   link(rel='stylesheet', href='/css/login.css')
@@ -6,7 +6,7 @@ block head
 block content
   form(id='form-register', class='form-login', action='/account/register', method='post', novalidate)
     a(href='/')
-      img(class='mb-4', width='72', height='72', src='/img/brand.png', alt='')
+      img(class='mb-4', width='72', height='72', src='/img/brand.png', alt='brand')
     h1(class='h3 mb-3 font-weight-light text-white') Welcome
     div(class='form-group')
       input(type='email', name='inputEmail', id='inputEmail', class='form-control', placeholder='Email', value=email, required, autofocus)

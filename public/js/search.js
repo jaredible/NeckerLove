@@ -28,13 +28,10 @@ var validator = $("#form-search").validate({
       url: form.action,
       data: $(form).serialize(),
       success: function(data) {
-        //console.log(data);
-
         var profilesList = $("#profiles-wrapper");
         profilesList.empty();
         $.each(data, function(index) {
           var profile = data[index];
-          //console.log(data[index]);
 
           var userName = profile.userName;
           var firstName = profile.firstName;
@@ -42,21 +39,20 @@ var validator = $("#form-search").validate({
           var interests = profile.interests;
           var state = profile.state;
 
-          //console.log(interests);
-
           var col = $("<div>", {
             class: "col-xs-12 col-sm-6 col-md-4 mt-3 mb-2 align-self-center justify-content-center"
           });
           var card = $("<div>", {
             class: "card rounded"
           });
+
           var cardBody = $("<div>", {
             class: "card-body shadow-lg text-center p-1 bg-light rounded"
           });
           var cardImage = $("<img>", {
             class: "card-img shadow-sm mb-1 lazy",
             src: "/img/defaultProfileImage.jpg",
-            alt: "",
+            alt: `${firstName} ${lastName} profile picture`,
             "data-src": `/account/findProfileImageByUserName?email=${userName}`
           });
           var cardTitle = $("<h4>", {
@@ -113,7 +109,9 @@ var validator = $("#form-search").validate({
           profilesList.append(col);
         });
 
-        $('.lazy').Lazy();
+        $('.lazy').Lazy({
+          placeholder: "/img/loading.gif"
+        });
       },
       error: function(data) {
         console.error(data);

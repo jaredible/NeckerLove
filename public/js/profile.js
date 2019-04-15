@@ -100,7 +100,7 @@ function setupFileInput() {
     },
     elErrorContainer: '#kv-error-2',
     msgErrorClass: 'alert alert-block alert-danger',
-    defaultPreviewContent: '<img class="lazy" src="/img/defaultProfileImage.jpg" alt="profile-image" data-src="/account/findProfileImageBySession?n=' + (new Date()).getTime() + '" style="width:100%; margin: auto;">',
+    defaultPreviewContent: '<img class="lazy" src="/img/defaultProfileImage.jpg" alt="profile picture" data-src="/account/findProfileImageBySession?n=' + (new Date()).getTime() + '" style="width:100%; margin: auto;">',
     layoutTemplates: {
       main2: '{preview} {remove} {browse}'
     },
@@ -124,6 +124,6 @@ function showSaveConfirmation() {
   $('#saved').fadeIn(500, function() {
     setTimeout(function() {
       $('#saved').fadeOut(500);
-    }, 50000);
+    }, 5000);
   });
 }
